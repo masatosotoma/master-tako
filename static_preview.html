@@ -1,0 +1,2296 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Savor premium, authentic Osaka-style takoyaki, sea urchin uni cream takoyaki, and spicy mentaiko & tobiko duo takoyaki at Master Tako. Hand-crafted, crispy outside, and creamy inside.">
+  <title>Master Tako | Premium Osaka Takoyaki Restaurant</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    /* App.css stylesheet embedded for standalone file preview */
+    :root {
+      /* Default Dark Theme variables */
+      --bg-primary: #0d0d0d;
+      --bg-secondary: #161616;
+      --bg-tertiary: #1f1f1f;
+      --border-color: rgba(255, 255, 255, 0.12);
+      --border-color-active: #ffffff;
+      --text-primary: #ffffff;
+      --text-secondary: #a0a0a0;
+      --text-muted: #666666;
+      --accent-color: #ffffff;
+      --accent-inverse: #000000;
+      --hover-bg: rgba(255, 255, 255, 0.08);
+      --modal-overlay: rgba(0, 0, 0, 0.85);
+      --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.5);
+      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.7);
+      --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.9);
+      
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 16px;
+      
+      --font-heading: 'Outfit', 'Noto Sans JP', sans-serif;
+      --font-body: 'Montserrat', 'Noto Sans JP', sans-serif;
+      --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      --max-width: 1200px;
+    }
+
+    /* Light Theme Variables */
+    [data-theme="light"] {
+      --bg-primary: #ffffff;
+      --bg-secondary: #f6f6f6;
+      --bg-tertiary: #ededed;
+      --border-color: rgba(0, 0, 0, 0.12);
+      --border-color-active: #000000;
+      --text-primary: #000000;
+      --text-secondary: #4a4a4a;
+      --text-muted: #888888;
+      --accent-color: #000000;
+      --accent-inverse: #ffffff;
+      --hover-bg: rgba(0, 0, 0, 0.06);
+      --modal-overlay: rgba(0, 0, 0, 0.6);
+      --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.12);
+    }
+
+    /* Reset and Base Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+      transition: background-color var(--transition-normal), color var(--transition-normal);
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      background: none;
+      font-family: var(--font-body);
+      color: inherit;
+      transition: all var(--transition-fast);
+    }
+
+    /* Layout Utilities */
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+    }
+
+    .section-padding {
+      padding: 100px 0;
+    }
+
+    /* Header Navigation */
+    header {
+      position: sticky;
+      top: 0;
+      background-color: rgba(13, 13, 13, 0.85);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+      border-bottom: 1px solid var(--border-color);
+      transition: all var(--transition-normal);
+    }
+
+    [data-theme="light"] header {
+      background-color: rgba(255, 255, 255, 0.85);
+    }
+
+    header.scrolled {
+      box-shadow: var(--shadow-sm);
+      padding: 4px 0;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 80px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-heading);
+      font-size: 1.6rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .logo span {
+      font-weight: 300;
+      color: var(--text-secondary);
+    }
+
+    .logo-icon {
+      font-size: 1.8rem;
+      display: inline-block;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-4px) rotate(5deg); }
+      100% { transform: translateY(0px) rotate(0deg); }
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* Lang Switcher */
+    .lang-select-wrapper {
+      display: flex;
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      padding: 4px;
+      border-radius: var(--radius-sm);
+    }
+
+    .lang-option {
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-radius: 2px;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+    }
+
+    .lang-option:hover {
+      color: var(--text-primary);
+    }
+
+    .lang-option.active {
+      background-color: var(--accent-color);
+      color: var(--accent-inverse);
+    }
+
+    /* Theme Toggle & Cart Button */
+    .icon-btn {
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      position: relative;
+      background-color: var(--bg-secondary);
+    }
+
+    .icon-btn:hover {
+      border-color: var(--border-color-active);
+      background-color: var(--hover-bg);
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      background-color: var(--text-primary);
+      color: var(--bg-primary);
+      font-size: 0.7rem;
+      font-weight: 700;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      padding: 140px 0 100px 0;
+      display: flex;
+      align-items: center;
+      min-height: 80vh;
+      border-bottom: 1px solid var(--border-color);
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.04;
+      pointer-events: none;
+      background-image: radial-gradient(var(--text-primary) 1px, transparent 0);
+      background-size: 24px 24px;
+    }
+
+    .hero-content {
+      max-width: 650px;
+      z-index: 2;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border: 1px solid var(--border-color);
+      padding: 6px 14px;
+      border-radius: 50px;
+      margin-bottom: 24px;
+      background-color: var(--bg-secondary);
+    }
+
+    .hero h1 {
+      font-size: 4rem;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      font-weight: 900;
+    }
+
+    .hero h1 span {
+      display: block;
+      background: linear-gradient(90deg, var(--text-primary), var(--text-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      margin-bottom: 40px;
+      max-width: 540px;
+    }
+
+    /* Decorative Vertical Kanji text */
+    .kanji-decoration {
+      position: absolute;
+      right: 50px;
+      top: 15%;
+      writing-mode: vertical-rl;
+      font-family: var(--font-heading);
+      font-size: 8rem;
+      font-weight: 900;
+      color: var(--border-color);
+      opacity: 0.4;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      transition: all var(--transition-normal);
+    }
+
+    .btn-primary {
+      background-color: var(--accent-color);
+      color: var(--accent-inverse);
+      border: 1px solid var(--accent-color);
+    }
+
+    .btn-primary:hover {
+      background-color: transparent;
+      color: var(--accent-color);
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--border-color-active);
+      background-color: var(--hover-bg);
+    }
+
+    /* Menu Section */
+    .section-title {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .section-subtitle {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      text-align: center;
+      margin-bottom: 48px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .menu-categories {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 48px;
+    }
+
+    .category-tab {
+      padding: 10px 24px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background-color: var(--bg-secondary);
+    }
+
+    .category-tab:hover {
+      border-color: var(--border-color-active);
+    }
+
+    .category-tab.active {
+      background-color: var(--accent-color);
+      color: var(--accent-inverse);
+      border-color: var(--accent-color);
+    }
+
+    /* Menu Grid & Cards */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 32px;
+    }
+
+    .menu-card {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all var(--transition-normal);
+    }
+
+    .menu-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--border-color-active);
+      box-shadow: var(--shadow-md);
+    }
+
+    .menu-card-img-container {
+      height: 220px;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+      background-color: var(--bg-tertiary);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .menu-card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-normal);
+    }
+
+    .menu-card:hover .menu-card-img {
+      transform: scale(1.05);
+    }
+
+    .menu-card-badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background-color: var(--text-primary);
+      color: var(--bg-primary);
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 2px;
+      letter-spacing: 0.08em;
+      z-index: 5;
+    }
+
+    .menu-card-content {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .menu-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 8px;
+    }
+
+    .menu-card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .menu-card-price {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .menu-card-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .menu-card-meta i {
+      font-size: 0.8rem;
+    }
+
+    .menu-card-description {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-bottom: 24px;
+      flex-grow: 1;
+    }
+
+    .menu-card-footer {
+      margin-top: auto;
+    }
+
+    .menu-card-btn {
+      width: 100%;
+      padding: 10px;
+      text-align: center;
+      border: 1px solid var(--border-color);
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      border-radius: var(--radius-sm);
+    }
+
+    .menu-card-btn:hover {
+      background-color: var(--accent-color);
+      color: var(--accent-inverse);
+      border-color: var(--accent-color);
+    }
+
+    /* Interactive Info Section */
+    .info-section {
+      border-top: 1px solid var(--border-color);
+      background-color: var(--bg-secondary);
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 40px;
+    }
+
+    .info-item {
+      padding: 32px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      background-color: var(--bg-primary);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: all var(--transition-normal);
+    }
+
+    .info-item:hover {
+      border-color: var(--border-color-active);
+    }
+
+    .info-icon {
+      font-size: 2rem;
+      color: var(--text-primary);
+    }
+
+    .info-item h3 {
+      font-size: 1.3rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .info-item p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      white-space: pre-line;
+    }
+
+    /* Footer */
+    footer {
+      padding: 48px 0;
+      border-top: 1px solid var(--border-color);
+      background-color: var(--bg-primary);
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: var(--font-heading);
+      font-size: 1.4rem;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+
+    .footer-text {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Shopping Cart Drawer */
+    .cart-drawer-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--modal-overlay);
+      z-index: 200;
+      opacity: 0;
+      visibility: hidden;
+      transition: all var(--transition-normal);
+    }
+
+    .cart-drawer-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: -420px;
+      width: 100%;
+      max-width: 420px;
+      height: 100%;
+      background-color: var(--bg-primary);
+      border-left: 1px solid var(--border-color);
+      z-index: 201;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-lg);
+      transition: right var(--transition-normal);
+    }
+
+    .cart-drawer-overlay.open .cart-drawer {
+      right: 0;
+    }
+
+    .cart-header {
+      padding: 24px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cart-header h2 {
+      font-size: 1.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .close-btn {
+      font-size: 1.4rem;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-sm);
+    }
+
+    .close-btn:hover {
+      background-color: var(--hover-bg);
+    }
+
+    .cart-body {
+      padding: 24px;
+      flex-grow: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .cart-empty-message {
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-top: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .cart-empty-message i {
+      font-size: 3rem;
+      color: var(--text-muted);
+    }
+
+    .cart-item {
+      display: flex;
+      gap: 16px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .cart-item-img {
+      width: 70px;
+      height: 70px;
+      border-radius: var(--radius-sm);
+      object-fit: cover;
+      border: 1px solid var(--border-color);
+    }
+
+    .cart-item-info {
+      flex-grow: 1;
+    }
+
+    .cart-item-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+    }
+
+    .cart-item-customizations {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+
+    .cart-item-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .quantity-control {
+      display: flex;
+      align-items: center;
+      border: 1px solid var(--border-color);
+      border-radius: 2px;
+    }
+
+    .qty-btn {
+      width: 26px;
+      height: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .qty-btn:hover {
+      background-color: var(--hover-bg);
+    }
+
+    .qty-val {
+      width: 32px;
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .cart-item-price {
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .cart-remove-btn {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .cart-remove-btn:hover {
+      color: var(--text-primary);
+    }
+
+    .cart-footer {
+      padding: 24px;
+      border-top: 1px solid var(--border-color);
+      background-color: var(--bg-secondary);
+    }
+
+    .cart-summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .cart-checkout-btn {
+      width: 100%;
+      padding: 14px;
+      text-align: center;
+      font-weight: 700;
+      text-transform: uppercase;
+      background-color: var(--accent-color);
+      color: var(--accent-inverse);
+      border: 1px solid var(--accent-color);
+      border-radius: var(--radius-sm);
+      letter-spacing: 0.05em;
+    }
+
+    .cart-checkout-btn:hover {
+      background-color: transparent;
+      color: var(--accent-color);
+    }
+
+    /* Customization & Checkout Modals */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--modal-overlay);
+      z-index: 300;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      visibility: hidden;
+      transition: all var(--transition-normal);
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-container {
+      background-color: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      width: 100%;
+      max-width: 580px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-lg);
+      transform: scale(0.95);
+      transition: transform var(--transition-normal);
+    }
+
+    .modal-overlay.open .modal-container {
+      transform: scale(1);
+    }
+
+    .modal-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h2 {
+      font-size: 1.3rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .modal-body {
+      padding: 24px;
+      overflow-y: auto;
+      flex-grow: 1;
+    }
+
+    .modal-footer {
+      padding: 20px 24px;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: var(--bg-secondary);
+    }
+
+    /* Customization Options Styles */
+    .item-preview {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    .item-preview-img {
+      width: 100px;
+      height: 100px;
+      border-radius: var(--radius-sm);
+      object-fit: cover;
+      border: 1px solid var(--border-color);
+    }
+
+    .item-preview-text {
+      flex-grow: 1;
+    }
+
+    .item-preview-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .item-preview-desc {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    .option-group {
+      margin-bottom: 24px;
+    }
+
+    .option-group-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+      border-left: 2px solid var(--text-primary);
+      padding-left: 8px;
+    }
+
+    .option-choices-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    @media (min-width: 480px) {
+      .option-choices-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .choice-card {
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: var(--bg-secondary);
+      text-align: left;
+    }
+
+    .choice-card:hover {
+      border-color: var(--border-color-active);
+    }
+
+    .choice-card.active {
+      border-color: var(--accent-color);
+      background-color: var(--accent-color);
+      color: var(--accent-inverse);
+    }
+
+    .choice-checkbox {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .checkbox-custom {
+      width: 18px;
+      height: 18px;
+      border: 1px solid var(--border-color-active);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+    }
+
+    .choice-card.active .checkbox-custom {
+      background-color: var(--accent-inverse);
+      color: var(--accent-color);
+      border-color: var(--accent-inverse);
+    }
+
+    /* Quantity controls in customize footer */
+    .modal-footer-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .modal-price-display {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .modal-price-label {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+    }
+
+    .modal-price-value {
+      font-size: 1.4rem;
+      font-weight: 800;
+      font-family: var(--font-heading);
+    }
+
+    /* Checkout Form */
+    .checkout-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-secondary);
+    }
+
+    .form-input {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      padding: 12px;
+      font-family: var(--font-body);
+      color: var(--text-primary);
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--border-color-active);
+    }
+
+    .checkout-summary-box {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 20px;
+      margin-bottom: 24px;
+      max-height: 220px;
+      overflow-y: auto;
+      font-family: monospace;
+      font-size: 0.85rem;
+      line-height: 1.4;
+      white-space: pre-wrap;
+      color: var(--text-primary);
+    }
+
+    .copied-toast {
+      text-align: center;
+      background-color: rgba(255, 255, 255, 0.15);
+      border: 1px solid var(--border-color);
+      padding: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      margin-top: 10px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Media Queries */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.8rem;
+      }
+      .section-padding {
+        padding: 60px 0;
+      }
+      .kanji-decoration {
+        font-size: 6rem;
+        right: 20px;
+      }
+      .nav-container {
+        height: 70px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+      .lang-select-wrapper {
+        display: none;
+      }
+      .mobile-lang-bar {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Bar -->
+  <header id="main-header">
+    <div class="container nav-container">
+      <a href="#" class="logo">
+        <span class="logo-icon">🐙</span> Master <span id="logo-tako-text">Tako</span>
+      </a>
+      
+      <div class="nav-actions">
+        <!-- Language Selector -->
+        <div class="lang-select-wrapper">
+          <button class="lang-option active" onclick="setLanguage('en')">EN</button>
+          <button class="lang-option" onclick="setLanguage('zh')">中文</button>
+          <button class="lang-option" onclick="setLanguage('ja')">日本語</button>
+        </div>
+
+        <!-- Dark Mode toggle -->
+        <button class="icon-btn" onclick="toggleTheme()" id="theme-toggle-btn" title="Toggle Theme">
+          <i class="fas fa-sun" id="theme-icon"></i>
+        </button>
+
+        <!-- Cart Icon trigger -->
+        <button class="icon-btn" onclick="openCart()" id="cart-trigger-btn" title="Your Order">
+          <i class="fas fa-shopping-basket"></i>
+          <span class="cart-count" id="cart-badge-count" style="display: none;">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="container">
+      <div class="hero-content">
+        <span class="hero-badge" id="hero-badge-text">Crispy • Creamy • Authentic</span>
+        <h1 id="hero-title-text">Savor the True Art of <span>Osaka Takoyaki</span></h1>
+        <p id="hero-subtitle-text">Hand-crafted octopus balls, cooked to golden perfection with a crispy exterior and a rich, creamy interior. Experience premium toppings and authentic flavors.</p>
+        <div style="display: flex; gap: 16px;">
+          <a href="#menu-section" class="btn btn-primary">
+            <i class="fas fa-hamburger"></i>
+            <span id="hero-btn-menu">Explore Menu</span>
+          </a>
+          <a href="#info-section" class="btn btn-secondary">
+            <i class="fas fa-map-marker-alt"></i>
+            <span id="hero-btn-location">Location</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="kanji-decoration">大阪たこ焼き</div>
+  </section>
+
+  <!-- Mobile Language Bar -->
+  <div class="mobile-lang-bar container" id="mobile-lang-container" style="display: none; margin: 20px auto 0 auto; justify-content: center; gap: 8px;">
+    <button class="lang-option active" id="m-lang-en" onclick="setLanguage('en')">EN</button>
+    <button class="lang-option" id="m-lang-zh" onclick="setLanguage('zh')">中文</button>
+    <button class="lang-option" id="m-lang-ja" onclick="setLanguage('ja')">日本語</button>
+  </div>
+
+  <!-- Menu Catalog Area -->
+  <main class="container section-padding" id="menu-section">
+    <h2 class="section-title" id="menu-title-text">Our Craft Menu</h2>
+    <p class="section-subtitle" id="menu-subtitle-text">Every takoyaki is hand-turned by our chefs using fresh ingredients. Choose your favorites below.</p>
+
+    <!-- Categories Tab Selector -->
+    <div class="menu-categories" id="categories-tabs-bar">
+      <button class="category-tab active" onclick="setCategory('all')" id="tab-all">All Items</button>
+      <button class="category-tab" onclick="setCategory('takoyaki')" id="tab-takoyaki">Takoyaki</button>
+      <button class="category-tab" onclick="setCategory('sides')" id="tab-sides">Sides</button>
+      <button class="category-tab" onclick="setCategory('drinks')" id="tab-drinks">Drinks</button>
+    </div>
+
+    <!-- Products Grid -->
+    <div class="menu-grid" id="products-grid-list">
+      <!-- Generated items will mount here -->
+    </div>
+  </main>
+
+  <!-- Info Details Section -->
+  <section class="info-section section-padding" id="info-section">
+    <div class="container">
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-icon"><i class="fas fa-map-marked-alt"></i></div>
+          <h3 id="info-loc-title">Visit Master Tako</h3>
+          <p id="info-loc-desc">123 Yatai Street, Tokyo Square, NY 10001</p>
+          <a href="#" target="_blank" rel="noreferrer" id="info-loc-maplink" style="font-size: 0.8rem; text-decoration: underline; font-weight: 600;">Open Google Maps</a>
+        </div>
+
+        <div class="info-item">
+          <div class="info-icon"><i class="fas fa-clock"></i></div>
+          <h3 id="info-hours-title">Business Hours</h3>
+          <p id="info-hours-desc">Mon - Sun: 12:00 PM - 10:00 PM</p>
+        </div>
+
+        <div class="info-item">
+          <div class="info-icon"><i class="fas fa-phone-alt"></i></div>
+          <h3 id="info-contact-title">Order & Contact</h3>
+          <p id="info-contact-desc">+1 (555) 825-6925 (TAKO-YAKI)</p>
+          <a href="#" id="info-contact-calllink" style="font-size: 0.8rem; text-decoration: underline; font-weight: 600;">Call Store</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-logo">🐙 Master Tako</div>
+      <div class="footer-text" id="footer-copyright-text">© 2026 Master Tako. Crafted with passion. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <!-- Takoyaki Customization Modal -->
+  <div class="modal-overlay" id="customize-modal" onclick="closeCustomizeModal()">
+    <div class="modal-container" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <h2 id="modal-title">Customize Takoyaki</h2>
+        <button class="close-btn" onclick="closeCustomizeModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="item-preview">
+          <img src="" alt="" class="item-preview-img" id="modal-preview-img">
+          <div class="item-preview-text">
+            <h3 class="item-preview-title" id="modal-preview-title">Osaka Classic Takoyaki</h3>
+            <p class="item-preview-desc" id="modal-preview-desc">Traditional recipe cooked to a perfect gold crisp.</p>
+          </div>
+        </div>
+
+        <!-- Portion Group -->
+        <div class="option-group">
+          <div class="option-group-title" id="modal-group-size-title">Choose Portion Size</div>
+          <div class="option-choices-grid">
+            <button class="choice-card active" onclick="setPortion('portion6')" id="modal-choice-6">
+              <span id="modal-choice-6-lbl">6 Pieces</span>
+              <span id="modal-choice-6-prc">$8.50</span>
+            </button>
+            <button class="choice-card" onclick="setPortion('portion10')" id="modal-choice-10">
+              <span id="modal-choice-10-lbl">10 Pieces</span>
+              <span id="modal-choice-10-prc">+$3.50</span>
+            </button>
+            <button class="choice-card" onclick="setPortion('portion15')" id="modal-choice-15">
+              <span id="modal-choice-15-lbl">15 Pieces</span>
+              <span id="modal-choice-15-prc">+$7.00</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Sauce Selection Group -->
+        <div class="option-group">
+          <div class="option-group-title" id="modal-group-sauce-title">Select Sauce Option</div>
+          <div class="option-choices-grid">
+            <button class="choice-card active" onclick="setSauce('sauceClassic')" id="modal-sauce-classic">
+              <span id="modal-sauce-classic-lbl">Classic Tako Sauce & Mayo</span>
+            </button>
+            <button class="choice-card" onclick="setSauce('sauceSweet')" id="modal-sauce-sweet">
+              <span id="modal-sauce-sweet-lbl">Sweet Brown Sauce Only</span>
+            </button>
+            <button class="choice-card" onclick="setSauce('sauceKewpie')" id="modal-sauce-kewpie">
+              <span id="modal-sauce-kewpie-lbl">Kewpie Mayo Only</span>
+            </button>
+            <button class="choice-card" onclick="setSauce('sauceNone')" id="modal-sauce-none">
+              <span id="modal-sauce-none-lbl">No Sauce (Dry / Plain)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Toppings Selection Group -->
+        <div class="option-group">
+          <div class="option-group-title" id="modal-group-toppings-title">Extra Toppings (Optional)</div>
+          <div class="option-choices-grid">
+            <button class="choice-card" onclick="toggleTopping('toppingBonito')" id="modal-topping-bonito">
+              <div class="choice-checkbox">
+                <div class="checkbox-custom" id="chk-bonito"></div>
+                <span id="modal-topping-bonito-lbl">Extra Bonito Flakes</span>
+              </div>
+              <span id="modal-topping-bonito-prc">+$0.50</span>
+            </button>
+            <button class="choice-card" onclick="toggleTopping('toppingGreenOnion')" id="modal-topping-greenonion">
+              <div class="choice-checkbox">
+                <div class="checkbox-custom" id="chk-greenonion"></div>
+                <span id="modal-topping-greenonion-lbl">Extra Green Onion</span>
+              </div>
+              <span id="modal-topping-greenonion-prc">+$0.70</span>
+            </button>
+            <button class="choice-card" onclick="toggleTopping('toppingSeaweed')" id="modal-topping-seaweed">
+              <div class="choice-checkbox">
+                <div class="checkbox-custom" id="chk-seaweed"></div>
+                <span id="modal-topping-seaweed-lbl">Extra Aonori</span>
+              </div>
+              <span id="modal-topping-seaweed-prc">+$0.30</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <div class="modal-footer-left">
+          <!-- Quantity adjuster -->
+          <div class="quantity-control">
+            <button class="qty-btn" onclick="adjustModalQty(-1)">-</button>
+            <div class="qty-val" id="modal-qty-val">1</div>
+            <button class="qty-btn" onclick="adjustModalQty(1)">+</button>
+          </div>
+
+          <div class="modal-price-display">
+            <span class="modal-price-label" id="modal-price-lbl">Subtotal</span>
+            <span class="modal-price-value" id="modal-price-val">$8.50</span>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" onclick="addCustomizedToCart()">
+          <span id="modal-add-btn">Add to Cart</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shopping Cart Drawer -->
+  <div class="cart-drawer-overlay" id="cart-drawer-overlay" onclick="closeCart()">
+    <div class="cart-drawer" onclick="event.stopPropagation()">
+      <div class="cart-header">
+        <h2><span id="cart-title-text">Your Order</span> (<span id="cart-header-count">0</span>)</h2>
+        <button class="close-btn" onclick="closeCart()">&times;</button>
+      </div>
+      
+      <div class="cart-body" id="cart-items-container">
+        <!-- Cart items go here -->
+      </div>
+
+      <div class="cart-footer" id="cart-footer-block" style="display: none;">
+        <div class="cart-summary-row">
+          <span id="cart-total-lbl">Subtotal</span>
+          <span id="cart-total-val">$0.00</span>
+        </div>
+        <button class="cart-checkout-btn" onclick="openCheckout()" id="cart-checkout-btn-txt">
+          Proceed to Checkout
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Checkout Summary Modal -->
+  <div class="modal-overlay" id="checkout-modal" onclick="closeCheckout()">
+    <div class="modal-container" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <h2 id="checkout-title-txt">Confirm Your Order</h2>
+        <button class="close-btn" onclick="closeCheckout()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 20px;" id="checkout-sub-txt">
+          Please confirm your order details below. You can copy the summary to text us or present at pickup.
+        </p>
+
+        <div class="checkout-form">
+          <div class="form-group">
+            <label for="pickup-name" id="chk-label-name">Pickup Name</label>
+            <input type="text" id="pickup-name" class="form-input" placeholder="Enter your name" oninput="updateSummaryBox()">
+          </div>
+          <div class="form-group">
+            <label for="pickup-phone" id="chk-label-phone">Phone Number</label>
+            <input type="tel" id="pickup-phone" class="form-input" placeholder="Enter phone number" oninput="updateSummaryBox()">
+          </div>
+        </div>
+
+        <div class="checkout-summary-box" id="checkout-summary-content">
+          <!-- Text order summary loaded here -->
+        </div>
+
+        <button class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="copyOrderSummary()">
+          <i class="fas fa-copy"></i>
+          <span id="checkout-copy-btn">Copy Order Summary</span>
+        </button>
+
+        <div class="copied-toast" id="copied-toast-msg" style="display: none;">
+          <i class="fas fa-check-circle" style="margin-right: 6px;"></i>
+          <span id="copied-toast-txt">Order copied to clipboard!</span>
+        </div>
+      </div>
+      <div class="modal-footer" style="justify-content: flex-end;">
+        <button class="btn btn-secondary" onclick="closeCheckout()" id="checkout-close-btn">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript logic -->
+  <script>
+    // System translations dictionary
+    const translations = {
+      en: {
+        heroBadge: "Crispy • Creamy • Authentic",
+        heroTitle: "Savor the True Art of <span>Osaka Takoyaki</span>",
+        heroSubtitle: "Hand-crafted octopus balls, cooked to golden perfection with a crispy exterior and a rich, creamy interior. Experience premium toppings and authentic flavors.",
+        exploreMenu: "Explore Menu",
+        categoriesTitle: "Our Craft Menu",
+        categoriesSubtitle: "Every takoyaki is hand-turned by our chefs using fresh ingredients. Choose your favorites below.",
+        catAll: "All Items",
+        catTakoyaki: "Takoyaki",
+        catSides: "Sides",
+        catDrinks: "Drinks",
+        locationTitle: "Visit Master Tako",
+        hoursTitle: "Business Hours",
+        contactTitle: "Order & Contact",
+        locDesc: "123 Yatai Street, Tokyo Square, NY 10001",
+        hoursDesc: "Mon - Sun: 12:00 PM - 10:00 PM",
+        contactDesc: "+1 (555) 825-6925 (TAKO-YAKI)",
+        footerText: "© 2026 Master Tako. Crafted with passion. All rights reserved.",
+        customSize: "Choose Portion Size",
+        customSauce: "Select Sauce Option",
+        customToppings: "Extra Toppings (Optional)",
+        pricePerItem: "Base price",
+        kcal: "kcal",
+        addCart: "Add to Cart",
+        cartTitle: "Your Order",
+        cartEmpty: "Your cart is empty. Choose some delicious takoyaki!",
+        cartTotal: "Subtotal",
+        checkoutBtn: "Proceed to Checkout",
+        checkoutTitle: "Confirm Your Order",
+        checkoutSub: "Please confirm your order details below. You can copy the summary to text us or present at pickup.",
+        copySummary: "Copy Order Summary",
+        summaryCopied: "Order copied to clipboard!",
+        orderPlaceSuccess: "Order details ready!",
+        close: "Close",
+        langSelect: "Language",
+        portion6: "6 Pieces",
+        portion10: "10 Pieces (+ $3.50)",
+        portion15: "15 Pieces (+ $7.00)",
+        sauceClassic: "Classic Tako Sauce & Mayo",
+        sauceSweet: "Sweet Brown Sauce Only",
+        sauceKewpie: "Kewpie Mayo Only",
+        sauceNone: "No Sauce (Dry / Plain)",
+        toppingBonito: "Extra Bonito Flakes (+$0.50)",
+        toppingGreenOnion: "Extra Green Onion (+$0.70)",
+        toppingSeaweed: "Extra Aonori (+$0.30)",
+        themeDark: "Dark Theme",
+        themeLight: "Light Theme",
+        portionLabel: "Size",
+        sauceLabel: "Sauce",
+        toppingsLabel: "Toppings"
+      },
+      zh: {
+        heroBadge: "外酥 • 内嫩 • 正宗",
+        heroTitle: "品味正宗 <span>大阪章鱼烧</span> 的艺术",
+        heroSubtitle: "手工翻转、烤至金黄。外表酥脆，内里软嫩多汁。搭配豪华浇头，品味最地道的大阪风味。",
+        exploreMenu: "浏览菜单",
+        categoriesTitle: "匠心菜单",
+        categoriesSubtitle: "每一颗章鱼烧均由师傅现场手作，精选新鲜食材。请在下方选择您的至爱。",
+        catAll: "全部菜单",
+        catTakoyaki: "章鱼烧",
+        catSides: "风味小吃",
+        catDrinks: "特调饮品",
+        locationTitle: "店铺地址",
+        hoursTitle: "营业时间",
+        contactTitle: "电话与预订",
+        locDesc: "纽约市东京广场屋台街123号，邮编 10001",
+        hoursDesc: "周一至周日：中午 12:00 - 晚上 10:00",
+        contactDesc: "+1 (555) 825-6925 (章鱼烧专线)",
+        footerText: "© 2026 大师章鱼烧。匠心手作，保留美味。版权所有。",
+        customSize: "选择份量",
+        customSauce: "选择酱汁",
+        customToppings: "额外配料（可选）",
+        pricePerItem: "起售价",
+        kcal: "千卡",
+        addCart: "加入购物车",
+        cartTitle: "您的订购单",
+        cartEmpty: "购物车空空如也。快来点美味的章鱼烧吧！",
+        cartTotal: "小计",
+        checkoutBtn: "去结算",
+        checkoutTitle: "确认您的订单",
+        checkoutSub: "请确认以下订单详情。您可以复制订单摘要，通过短信发送给我们，或在到店取餐时出示。",
+        copySummary: "复制订单摘要",
+        summaryCopied: "订单摘要已复制到剪贴板！",
+        orderPlaceSuccess: "订单详情已生成！",
+        close: "关闭",
+        langSelect: "语言选择",
+        portion6: "6个装",
+        portion10: "10个装 (+ $3.50)",
+        portion15: "15个装 (+ $7.00)",
+        sauceClassic: "经典章鱼烧酱 + 美乃滋",
+        sauceSweet: "仅章鱼烧酱",
+        sauceKewpie: "仅日式美乃滋",
+        sauceNone: "不加酱（原味）",
+        toppingBonito: "加柴鱼片 (+$0.50)",
+        toppingGreenOnion: "加葱花 (+$0.70)",
+        toppingSeaweed: "加青海苔粉 (+$0.30)",
+        themeDark: "深色模式",
+        themeLight: "浅色模式",
+        portionLabel: "份量",
+        sauceLabel: "酱汁",
+        toppingsLabel: "配料"
+      },
+      ja: {
+        heroBadge: "外はカリッ • 中はトロッ • 本場の味",
+        heroTitle: "本場 <span>大阪たこ焼き</span> の極みを味わう",
+        heroSubtitle: "職人が一つひとつ丁寧に焼き上げる、外はカリカリ、中はトロトロの極上たこ焼き。こだわり抜いた厳選トッピングと本場の味をお楽しみください。",
+        exploreMenu: "メニューを見る",
+        categoriesTitle: "こだわりメニュー",
+        categoriesSubtitle: "当店のたこ焼きはすべて新鮮なタコを使用し、職人が手焼きしています。以下よりお選びください。",
+        catAll: "すべて",
+        catTakoyaki: "たこ焼き",
+        catSides: "一品料理",
+        catDrinks: "お飲み物",
+        locationTitle: "アクセス",
+        hoursTitle: "営業時間",
+        contactTitle: "ご予約・お問合せ",
+        locDesc: "ニューヨーク州 東京スクエア 屋台街123号（郵便番号10001）",
+        hoursDesc: "月曜日 - 日曜日: 12:00 - 22:00",
+        contactDesc: "+1 (555) 825-6925 (たこ焼きダイヤル)",
+        footerText: "© 2026 たこ焼きマスター。職人のこだわりを皆様に。All rights reserved.",
+        customSize: "個数を選択",
+        customSauce: "ソースの選択",
+        customToppings: "追加トッピング (オプション)",
+        pricePerItem: "基本料金",
+        kcal: "キロカロリー",
+        addCart: "カートに追加",
+        cartTitle: "ご注文内容",
+        cartEmpty: "カートは空です。自慢のたこ焼きをどうぞ！",
+        cartTotal: "合計金額",
+        checkoutBtn: "注文を確認する",
+        checkoutTitle: "ご注文の確定",
+        checkoutSub: "ご注文内容をご確認ください。この概要をコピーしてメッセージで送るか、お受け取りの際にご提示ください。",
+        copySummary: "注文概要をコピー",
+        summaryCopied: "クリップボードにコピーしました！",
+        orderPlaceSuccess: "ご注文内容が作成されました！",
+        close: "閉じる",
+        langSelect: "言語切り替え",
+        portion6: "6個入り",
+        portion10: "10個入り (+ $3.50)",
+        portion15: "15個入り (+ $7.00)",
+        sauceClassic: "ソース ＆ マヨネーズ",
+        sauceSweet: "ソースのみ",
+        sauceKewpie: "マヨネーズのみ",
+        sauceNone: "ソース・マヨなし (すっぴん)",
+        toppingBonito: "かつお節多め (+$0.50)",
+        toppingGreenOnion: "ねぎ多め (+$0.70)",
+        toppingSeaweed: "青のり多め (+$0.30)",
+        themeDark: "ダークモード",
+        themeLight: "ライトモード",
+        portionLabel: "個数",
+        sauceLabel: "ソース",
+        toppingsLabel: "トッピング"
+      }
+    };
+
+    // Menu database array matching menuData.js
+    const menuData = [
+      {
+        id: "osaka-style-takoyaki",
+        category: "takoyaki",
+        cal: "320 kcal",
+        basePrice: 8.50,
+        basePriceJa: 850,
+        badge: { en: "Best Seller", zh: "招牌经典", ja: "元祖・人気No.1" },
+        imagePath: "menu/osaka-style-takoyaki.png",
+        names: { en: "Osaka Classic Takoyaki", zh: "经典大阪章鱼烧", ja: "元祖大阪たこ焼き" },
+        descriptions: { 
+          en: "Traditional recipe cooked to a perfect gold crisp. Topped with sweet takoyaki sauce, Kewpie mayo, green nori powder, and dancing bonito flakes.", 
+          zh: "传承经典大阪配方，现场烧制至表皮酥脆。淋上秘制章鱼烧甜酱、日式美乃滋，撒上柴鱼片及青海苔粉，鲜美多汁。", 
+          ja: "外はカリッと、中はトロトロの定番だこ。オリジナルソース、マヨネーズ、青のり、そして贅沢に踊るかつお節をかけてお召し上がりください。" 
+        },
+        customType: "takoyaki"
+      },
+      {
+        id: "uni-cream-takoyaki",
+        category: "takoyaki",
+        cal: "380 kcal",
+        basePrice: 12.50,
+        basePriceJa: 1250,
+        badge: { en: "Chef's Special", zh: "主厨推荐", ja: "贅沢・極み" },
+        imagePath: "menu/uni-cream-takoyaki.png",
+        names: { en: "Premium Uni Cream Takoyaki", zh: "豪华海胆酱章鱼烧", ja: "濃厚うにクリームたこ焼き" },
+        descriptions: { 
+          en: "Gourmet fusion featuring a velvety rich sea urchin (uni) cream sauce, garnished with fresh micro-greens and toasted golden sesame.", 
+          zh: "中西合璧的奢华滋味。浇上特调浓郁海胆奶油酱，佐以新鲜葱花及金黄芝麻，口感醇厚细腻，海味十足。", 
+          ja: "極上の海の恵み、濃厚な「うにクリーム」を贅沢に使用した創作たこ焼き。トビコとネギがアクセントとなり、クリーミーで奥行きのある味わいです。" 
+        },
+        customType: "takoyaki"
+      },
+      {
+        id: "mentaiko-tobiko-takoyaki",
+        category: "takoyaki",
+        cal: "365 kcal",
+        basePrice: 10.90,
+        basePriceJa: 1090,
+        badge: { en: "Popular", zh: "人气之选", ja: "女性人気" },
+        imagePath: "menu/mentaiko-takoyaki & tobiko-takoyaki.png",
+        names: { en: "Mentaiko & Tobiko Duo Takoyaki", zh: "明太子与飞鱼子双拼章鱼烧", ja: "明太子＆とびこ双子たこ焼き" },
+        descriptions: { 
+          en: "Perfect harmony of savory spicy cod roe (mentaiko) mayo and popping flying fish roe (tobiko) for double the texture and flavor.", 
+          zh: "微辣咸香的明太子美乃滋与粒粒弹牙的飞鱼子交相辉映。双重鱼卵在口中爆开，给您前所未有的口感碰撞。", 
+          ja: "ピリッと辛い「明太子マヨネーズ」と、ぷちぷち弹ける「とびこ」をダブルで盛り付けた贅沢な一皿。食感とコクの極上ハーモニー。" 
+        },
+        customType: "takoyaki"
+      },
+      {
+        id: "truffle-cheese-takoyaki",
+        category: "takoyaki",
+        cal: "395 kcal",
+        basePrice: 11.50,
+        basePriceJa: 1150,
+        badge: { en: "New", zh: "新品上市", ja: "新登場" },
+        imagePath: "menu/truffle-cheese-takoyaki.png",
+        names: { en: "Truffle Cheese Takoyaki", zh: "黑松露芝士章鱼烧", ja: "チーズトリュフたこ焼き" },
+        descriptions: { 
+          en: "Indulgent blend of melted mozzarella and aromatic black truffle oil, topped with freshly grated Parmesan cheese and chives.", 
+          zh: "意式风味与日式小吃的完美融合。浓郁融化的马苏里拉芝士，散发黑松露特有的芬芳，再撒上帕玛森干酪和细香葱。", 
+          ja: "とろ〜り溶けるモッツァレラチーズと芳醇な黒トリュフオイルの香り。仕上げに削りたてのパルミジャーノとチャイブを乗せた香り高い逸品。" 
+        },
+        customType: "takoyaki"
+      },
+      {
+        id: "japanese-karaage",
+        category: "sides",
+        cal: "410 kcal",
+        basePrice: 6.90,
+        basePriceJa: 690,
+        badge: null,
+        imagePath: "menu/karaage.png",
+        names: { en: "Ginger-Soy Chicken Karaage", zh: "日式生姜酱油唐扬鸡", ja: "自家製 鶏の唐揚げ" },
+        descriptions: { 
+          en: "Crispy Japanese-style fried chicken marinated in ginger, garlic, and soy sauce. Served with lemon and spicy sriracha mayo.", 
+          zh: "外酥里嫩的日式炸鸡，以生姜、大蒜和酱油腌制入味。附柠檬片和秘制辣味美乃滋酱。", 
+          ja: "醤油と生姜、ニンニクでしっかりと下味をつけ、片栗粉でカラッと揚げたジューシーな唐揚げ。レモンと特製マヨを添えて。" 
+        },
+        customType: "side"
+      },
+      {
+        id: "takowasa",
+        category: "sides",
+        cal: "85 kcal",
+        basePrice: 4.50,
+        basePriceJa: 450,
+        badge: null,
+        imagePath: "menu/takowasa.png",
+        names: { en: "Chilled Wasabi Octopus (Takowasa)", zh: "芥末生章鱼 (TakoWasa)", ja: "たこわさび" },
+        descriptions: { 
+          en: "Raw chopped octopus marinated in a refreshing, spicy wasabi stem sauce. A classic Izakaya starter.", 
+          zh: "爽脆的生章鱼碎切，拌入辛辣清爽的芥末茎酱汁中腌制。冰凉开胃，经典的日式居酒屋前菜。", 
+          ja: "新鮮な生のたこを、ピリッと辛いわさび茎と出汁で和えた定番スピードメニュー。お酒のお供に最適です。" 
+        },
+        customType: "side"
+      },
+      {
+        id: "salted-edamame",
+        category: "sides",
+        cal: "120 kcal",
+        basePrice: 3.50,
+        basePriceJa: 350,
+        badge: null,
+        imagePath: "menu/edamame.png",
+        names: { en: "Sea Salt Steamed Edamame", zh: "盐水毛豆", ja: "茹でたて枝豆 (塩味)" },
+        descriptions: { 
+          en: "Steamed green soybean pods lightly tossed in coarse sea salt. Serve warm.", 
+          zh: "新鲜饱满的青毛豆，温水煮熟后轻轻拌入海盐。清新健康，清脆爽口。", 
+          ja: "ふっくらと茹で上げた枝豆に、塩をさっと振ったシンプルながら飽きない味わい。温かい状態でお届けします。" 
+        },
+        customType: "side"
+      },
+      {
+        id: "matcha-green-tea",
+        category: "drinks",
+        cal: "45 kcal",
+        basePrice: 3.20,
+        basePriceJa: 320,
+        badge: null,
+        imagePath: "menu/matcha-green-tea.png",
+        names: { en: "Iced Shizuoka Matcha Green Tea", zh: "冰镇静冈抹茶绿茶", ja: "静岡産 冷やし抹茶緑茶" },
+        descriptions: { 
+          en: "Refreshing chilled unsweetened green tea brewed from premium Shizuoka matcha powder.", 
+          zh: "精选日本静冈优质抹茶粉冲泡，无糖冰镇，清新解腻，茶香悠长。", 
+          ja: "静岡県産の高級抹茶を使用し、渋みと甘みのバランスが良いスッキリとした味わいの冷たい緑茶です。(無糖)" 
+        },
+        customType: "drink"
+      },
+      {
+        id: "ramune-soda",
+        category: "drinks",
+        cal: "90 kcal",
+        basePrice: 3.00,
+        basePriceJa: 300,
+        badge: null,
+        imagePath: "menu/ramune.png",
+        names: { en: "Classic Marble Ramune Soda", zh: "经典波子汽水", ja: "ラムネ (瓶)" },
+        descriptions: { 
+          en: "Traditional Japanese carbonated soft drink in its fun marble-neck glass bottle. Sweet lemon-lime flavor.", 
+          zh: "带弹珠的经典日式碳酸饮料，清凉甜美的柠檬汽水味。大入小孩都爱的趣味包装。", 
+          ja: "昔懐かしいビー玉入りの瓶ラムネ。しゅわっと弾ける爽やかなライム風味で、たこ焼きとの相性も抜群です。" 
+        },
+        customType: "drink"
+      }
+    ];
+
+    // Page State variables
+    let currentLanguage = 'en';
+    let currentCategory = 'all';
+    let currentTheme = 'dark';
+    let cart = [];
+    
+    // Customization Modal Temp States
+    let activeCustomizingItem = null;
+    let tempPortion = 'portion6';
+    let tempSauce = 'sauceClassic';
+    let tempToppings = {
+      toppingBonito: false,
+      toppingGreenOnion: false,
+      toppingSeaweed: false
+    };
+    let tempQuantity = 1;
+
+    // Monitor scroll
+    window.addEventListener("scroll", () => {
+      const header = document.getElementById("main-header");
+      if (window.scrollY > 20) {
+        header.classList.add("scrolled");
+      } else {
+        header.classList.remove("scrolled");
+      }
+    });
+
+    // On Load
+    document.addEventListener("DOMContentLoaded", () => {
+      setLanguage('en');
+      setTheme('dark');
+      renderMenu();
+    });
+
+    // Helper: format prices
+    function formatPrice(usd, jpy) {
+      if (currentLanguage === 'ja') {
+        const jpyVal = jpy || Math.round(usd * 100);
+        return `${jpyVal}円`;
+      }
+      return `$${usd.toFixed(2)}`;
+    }
+
+    // Toggle Theme
+    function toggleTheme() {
+      currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', currentTheme);
+      
+      const themeIcon = document.getElementById("theme-icon");
+      if (currentTheme === 'dark') {
+        themeIcon.className = "fas fa-sun";
+      } else {
+        themeIcon.className = "fas fa-moon";
+      }
+    }
+
+    // Set Language
+    function setLanguage(lang) {
+      currentLanguage = lang;
+      const t = translations[currentLanguage];
+
+      // Update text in document
+      document.getElementById("logo-tako-text").textContent = "Tako";
+      document.getElementById("hero-badge-text").textContent = t.heroBadge;
+      document.getElementById("hero-title-text").innerHTML = t.heroTitle;
+      document.getElementById("hero-subtitle-text").textContent = t.heroSubtitle;
+      document.getElementById("hero-btn-menu").textContent = t.exploreMenu;
+      document.getElementById("hero-btn-location").textContent = t.locationTitle.split(' ')[0];
+      document.getElementById("menu-title-text").textContent = t.categoriesTitle;
+      document.getElementById("menu-subtitle-text").textContent = t.categoriesSubtitle;
+
+      // Update Categories Labels
+      document.getElementById("tab-all").textContent = t.catAll;
+      document.getElementById("tab-takoyaki").textContent = t.catTakoyaki;
+      document.getElementById("tab-sides").textContent = t.catSides;
+      document.getElementById("tab-drinks").textContent = t.catDrinks;
+
+      // Update Location details
+      document.getElementById("info-loc-title").textContent = t.locationTitle;
+      document.getElementById("info-loc-desc").textContent = t.locDesc;
+      document.getElementById("info-loc-maplink").textContent = currentLanguage === 'ja' ? 'Googleマップで開く' : currentLanguage === 'zh' ? '在谷歌地图上打开' : 'Open Google Maps';
+      document.getElementById("info-loc-maplink").href = `https://maps.google.com/?q=${encodeURIComponent(t.locDesc)}`;
+
+      document.getElementById("info-hours-title").textContent = t.hoursTitle;
+      document.getElementById("info-hours-desc").textContent = t.hoursDesc;
+
+      document.getElementById("info-contact-title").textContent = t.contactTitle;
+      document.getElementById("info-contact-desc").textContent = t.contactDesc;
+      document.getElementById("info-contact-calllink").textContent = currentLanguage === 'ja' ? '電話をかける' : currentLanguage === 'zh' ? '拨打电话' : 'Call Store';
+      document.getElementById("info-contact-calllink").href = `tel:${t.contactDesc.replace(/[^0-9+]/g, '')}`;
+
+      document.getElementById("footer-copyright-text").textContent = t.footerText;
+
+      // Update Cart Titles
+      document.getElementById("cart-title-text").textContent = t.cartTitle;
+      document.getElementById("cart-total-lbl").textContent = t.cartTotal;
+      document.getElementById("cart-checkout-btn-txt").textContent = t.checkoutBtn;
+
+      // Update Checkout modal
+      document.getElementById("checkout-title-txt").textContent = t.checkoutTitle;
+      document.getElementById("checkout-sub-txt").textContent = t.checkoutSub;
+      document.getElementById("chk-label-name").textContent = currentLanguage === 'ja' ? 'お名前' : currentLanguage === 'zh' ? '取餐姓名' : 'Pickup Name';
+      document.getElementById("chk-label-phone").textContent = currentLanguage === 'ja' ? '電話番号' : currentLanguage === 'zh' ? '联系电话' : 'Phone Number';
+      document.getElementById("pickup-name").placeholder = currentLanguage === 'ja' ? 'お名前を入力してください' : currentLanguage === 'zh' ? '请输入姓名' : 'Enter your name';
+      document.getElementById("pickup-phone").placeholder = currentLanguage === 'ja' ? '電話番号を入力してください' : currentLanguage === 'zh' ? '请输入电话' : 'Enter phone number';
+      document.getElementById("checkout-copy-btn").textContent = t.copySummary;
+      document.getElementById("copied-toast-txt").textContent = t.summaryCopied;
+      document.getElementById("checkout-close-btn").textContent = t.close;
+
+      // Update Active Navigation highlights
+      const langWrappers = document.querySelectorAll(".lang-select-wrapper");
+      langWrappers.forEach(wrap => {
+        const buttons = wrap.querySelectorAll(".lang-option");
+        buttons.forEach(btn => btn.classList.remove("active"));
+        if (lang === 'en') buttons[0]?.classList.add("active");
+        if (lang === 'zh') buttons[1]?.classList.add("active");
+        if (lang === 'ja') buttons[2]?.classList.add("active");
+      });
+
+      const mobileButtons = document.querySelectorAll(".mobile-lang-bar .lang-option");
+      mobileButtons.forEach(btn => btn.classList.remove("active"));
+      if (lang === 'en') document.getElementById("m-lang-en")?.classList.add("active");
+      if (lang === 'zh') document.getElementById("m-lang-zh")?.classList.add("active");
+      if (lang === 'ja') document.getElementById("m-lang-ja")?.classList.add("active");
+
+      // Rerender Menu and Cart to apply language
+      renderMenu();
+      renderCart();
+    }
+
+    // Set Category
+    function setCategory(cat) {
+      currentCategory = cat;
+      document.querySelectorAll(".category-tab").forEach(tab => {
+        tab.classList.remove("active");
+      });
+      document.getElementById(`tab-${cat}`).classList.add("active");
+      renderMenu();
+    }
+
+    // Render Menu Cards
+    function renderMenu() {
+      const grid = document.getElementById("products-grid-list");
+      grid.innerHTML = "";
+
+      const t = translations[currentLanguage];
+      const filtered = menuData.filter(item => currentCategory === 'all' || item.category === currentCategory);
+
+      filtered.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "menu-card";
+
+        const badgeHTML = item.badge ? `<span class="menu-card-badge">${item.badge[currentLanguage]}</span>` : "";
+        const nameText = item.names[currentLanguage];
+        const priceText = formatPrice(item.basePrice, item.basePriceJa);
+        const descText = item.descriptions[currentLanguage];
+        const btnText = item.customType === 'takoyaki' ? t.exploreMenu.split(' ')[0] : t.addCart;
+
+        card.innerHTML = `
+          <div class="menu-card-img-container">
+            <img src="${item.imagePath}" alt="${nameText}" class="menu-card-img">
+            ${badgeHTML}
+          </div>
+          <div class="menu-card-content">
+            <div class="menu-card-header">
+              <h3 class="menu-card-title">${nameText}</h3>
+              <span class="menu-card-price">${priceText}</span>
+            </div>
+            <div class="menu-card-meta">
+              <span><i class="fas fa-fire"></i> ${item.cal}</span>
+              <span>•</span>
+              <span>${item.category.toUpperCase()}</span>
+            </div>
+            <p class="menu-card-description">${descText}</p>
+            <div class="menu-card-footer">
+              <button class="menu-card-btn" onclick="handleItemClick('${item.id}')">
+                <i class="fas fa-plus" style="margin-right: 6px"></i>
+                ${btnText}
+              </button>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // Handle Card Click
+    function handleItemClick(itemId) {
+      const item = menuData.find(i => i.id === itemId);
+      if (!item) return;
+
+      if (item.customType === 'takoyaki') {
+        openCustomizeModal(item);
+      } else {
+        addToCartDirect(item);
+      }
+    }
+
+    // Open Customize Modal
+    function openCustomizeModal(item) {
+      activeCustomizingItem = item;
+      tempPortion = 'portion6';
+      tempSauce = 'sauceClassic';
+      tempToppings = {
+        toppingBonito: false,
+        toppingGreenOnion: false,
+        toppingSeaweed: false
+      };
+      tempQuantity = 1;
+
+      const t = translations[currentLanguage];
+      
+      // Load modal data
+      document.getElementById("modal-title").textContent = item.names[currentLanguage];
+      document.getElementById("modal-preview-title").textContent = item.names[currentLanguage];
+      document.getElementById("modal-preview-desc").textContent = item.descriptions[currentLanguage];
+      document.getElementById("modal-preview-img").src = item.imagePath;
+
+      // Group titles
+      document.getElementById("modal-group-size-title").textContent = t.customSize;
+      document.getElementById("modal-group-sauce-title").textContent = t.customSauce;
+      document.getElementById("modal-group-toppings-title").textContent = t.customToppings;
+
+      // Portion Choice button Labels
+      document.getElementById("modal-choice-6-lbl").textContent = t.portion6.split(' (+')[0];
+      document.getElementById("modal-choice-6-prc").textContent = formatPrice(item.basePrice, item.basePriceJa);
+      
+      document.getElementById("modal-choice-10-lbl").textContent = t.portion10.split(' (+')[0];
+      document.getElementById("modal-choice-10-prc").textContent = "+" + formatPrice(3.50, 350);
+
+      document.getElementById("modal-choice-15-lbl").textContent = t.portion15.split(' (+')[0];
+      document.getElementById("modal-choice-15-prc").textContent = "+" + formatPrice(7.00, 700);
+
+      // Sauce button Labels
+      document.getElementById("modal-sauce-classic-lbl").textContent = t.sauceClassic;
+      document.getElementById("modal-sauce-sweet-lbl").textContent = t.sauceSweet;
+      document.getElementById("modal-sauce-kewpie-lbl").textContent = t.sauceKewpie;
+      document.getElementById("modal-sauce-none-lbl").textContent = t.sauceNone;
+
+      // Toppings button Labels
+      document.getElementById("modal-topping-bonito-lbl").textContent = t.toppingBonito.split(' (+')[0];
+      document.getElementById("modal-topping-bonito-prc").textContent = "+" + formatPrice(0.50, 50);
+
+      document.getElementById("modal-topping-greenonion-lbl").textContent = t.toppingGreenOnion.split(' (+')[0];
+      document.getElementById("modal-topping-greenonion-prc").textContent = "+" + formatPrice(0.70, 70);
+
+      document.getElementById("modal-topping-seaweed-lbl").textContent = t.toppingSeaweed.split(' (+')[0];
+      document.getElementById("modal-topping-seaweed-prc").textContent = "+" + formatPrice(0.30, 30);
+
+      document.getElementById("modal-price-lbl").textContent = t.cartTotal;
+      document.getElementById("modal-add-btn").textContent = t.addCart;
+
+      syncModalSelections();
+      updateModalPrice();
+
+      document.getElementById("customize-modal").classList.add("open");
+    }
+
+    // Sync active CSS styling inside customization modal
+    function syncModalSelections() {
+      // Portions
+      document.getElementById("modal-choice-6").className = `choice-card ${tempPortion === 'portion6' ? 'active' : ''}`;
+      document.getElementById("modal-choice-10").className = `choice-card ${tempPortion === 'portion10' ? 'active' : ''}`;
+      document.getElementById("modal-choice-15").className = `choice-card ${tempPortion === 'portion15' ? 'active' : ''}`;
+
+      // Sauces
+      document.getElementById("modal-sauce-classic").className = `choice-card ${tempSauce === 'sauceClassic' ? 'active' : ''}`;
+      document.getElementById("modal-sauce-sweet").className = `choice-card ${tempSauce === 'sauceSweet' ? 'active' : ''}`;
+      document.getElementById("modal-sauce-kewpie").className = `choice-card ${tempSauce === 'sauceKewpie' ? 'active' : ''}`;
+      document.getElementById("modal-sauce-none").className = `choice-card ${tempSauce === 'sauceNone' ? 'active' : ''}`;
+
+      // Toppings checkboxes
+      document.getElementById("modal-topping-bonito").className = `choice-card ${tempToppings.toppingBonito ? 'active' : ''}`;
+      document.getElementById("chk-bonito").innerHTML = tempToppings.toppingBonito ? '<i class="fas fa-check"></i>' : '';
+
+      document.getElementById("modal-topping-greenonion").className = `choice-card ${tempToppings.toppingGreenOnion ? 'active' : ''}`;
+      document.getElementById("chk-greenonion").innerHTML = tempToppings.toppingGreenOnion ? '<i class="fas fa-check"></i>' : '';
+
+      document.getElementById("modal-topping-seaweed").className = `choice-card ${tempToppings.toppingSeaweed ? 'active' : ''}`;
+      document.getElementById("chk-seaweed").innerHTML = tempToppings.toppingSeaweed ? '<i class="fas fa-check"></i>' : '';
+
+      document.getElementById("modal-qty-val").textContent = tempQuantity;
+    }
+
+    // Set portion and recalculate
+    function setPortion(port) {
+      tempPortion = port;
+      syncModalSelections();
+      updateModalPrice();
+    }
+
+    // Set Sauce and recalculate
+    function setSauce(sc) {
+      tempSauce = sc;
+      syncModalSelections();
+    }
+
+    // Toggle toppings and recalculate
+    function toggleTopping(tp) {
+      tempToppings[tp] = !tempToppings[tp];
+      syncModalSelections();
+      updateModalPrice();
+    }
+
+    // Adjust modal quantity
+    function adjustModalQty(val) {
+      tempQuantity = Math.max(1, tempQuantity + val);
+      document.getElementById("modal-qty-val").textContent = tempQuantity;
+      updateModalPrice();
+    }
+
+    // Calculate dynamic price of customization items
+    function getCustomItemPriceObj() {
+      let usd = activeCustomizingItem.basePrice;
+      let jpy = activeCustomizingItem.basePriceJa || Math.round(activeCustomizingItem.basePrice * 100);
+
+      if (tempPortion === 'portion10') {
+        usd += 3.50;
+        jpy += 350;
+      } else if (tempPortion === 'portion15') {
+        usd += 7.00;
+        jpy += 700;
+      }
+
+      if (tempToppings.toppingBonito) {
+        usd += 0.50;
+        jpy += 50;
+      }
+      if (tempToppings.toppingGreenOnion) {
+        usd += 0.70;
+        jpy += 70;
+      }
+      if (tempToppings.toppingSeaweed) {
+        usd += 0.30;
+        jpy += 30;
+      }
+
+      return { usd, jpy };
+    }
+
+    // Update modal price
+    function updateModalPrice() {
+      if (!activeCustomizingItem) return;
+      const singlePrice = getCustomItemPriceObj();
+      document.getElementById("modal-price-val").textContent = formatPrice(singlePrice.usd * tempQuantity, singlePrice.jpy * tempQuantity);
+    }
+
+    // Close Customization modal
+    function closeCustomizeModal() {
+      document.getElementById("customize-modal").classList.remove("open");
+      activeCustomizingItem = null;
+    }
+
+    // Add Direct Standard item
+    function addToCartDirect(item) {
+      const existing = cart.find(i => i.id === item.id && i.portion === null);
+      if (existing) {
+        existing.quantity += 1;
+        existing.totalPriceUsd += item.basePrice;
+        existing.totalPriceJpy += (item.basePriceJa || Math.round(item.basePrice * 100));
+      } else {
+        const priceObj = { usd: item.basePrice, jpy: (item.basePriceJa || Math.round(item.basePrice * 100)) };
+        cart.push({
+          cartId: Date.now(),
+          id: item.id,
+          item: item,
+          quantity: 1,
+          portion: null,
+          sauce: null,
+          toppings: null,
+          singlePriceUsd: priceObj.usd,
+          singlePriceJpy: priceObj.jpy,
+          totalPriceUsd: priceObj.usd,
+          totalPriceJpy: priceObj.jpy
+        });
+      }
+      renderCart();
+      openCart();
+    }
+
+    // Add customized takoyaki to cart
+    function addCustomizedToCart() {
+      const singlePrice = getCustomItemPriceObj();
+      const totalPriceUsd = singlePrice.usd * tempQuantity;
+      const totalPriceJpy = singlePrice.jpy * tempQuantity;
+
+      // check duplicate
+      const existingIndex = cart.findIndex(c => 
+        c.id === activeCustomizingItem.id &&
+        c.portion === tempPortion &&
+        c.sauce === tempSauce &&
+        JSON.stringify(c.toppings) === JSON.stringify(tempToppings)
+      );
+
+      if (existingIndex > -1) {
+        cart[existingIndex].quantity += tempQuantity;
+        cart[existingIndex].totalPriceUsd += totalPriceUsd;
+        cart[existingIndex].totalPriceJpy += totalPriceJpy;
+      } else {
+        cart.push({
+          cartId: Date.now(),
+          id: activeCustomizingItem.id,
+          item: activeCustomizingItem,
+          quantity: tempQuantity,
+          portion: tempPortion,
+          sauce: tempSauce,
+          toppings: { ...tempToppings },
+          singlePriceUsd: singlePrice.usd,
+          singlePriceJpy: singlePrice.jpy,
+          totalPriceUsd: totalPriceUsd,
+          totalPriceJpy: totalPriceJpy
+        });
+      }
+
+      closeCustomizeModal();
+      renderCart();
+      openCart();
+    }
+
+    // Render cart elements
+    function renderCart() {
+      const container = document.getElementById("cart-items-container");
+      container.innerHTML = "";
+
+      const t = translations[currentLanguage];
+      const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+      // Badge update
+      const badge = document.getElementById("cart-badge-count");
+      if (totalCount > 0) {
+        badge.textContent = totalCount;
+        badge.style.display = "flex";
+      } else {
+        badge.style.display = "none";
+      }
+
+      document.getElementById("cart-header-count").textContent = totalCount;
+
+      if (cart.length === 0) {
+        container.innerHTML = `
+          <div class="cart-empty-message">
+            <i class="fas fa-shopping-basket"></i>
+            <p>${t.cartEmpty}</p>
+          </div>
+        `;
+        document.getElementById("cart-footer-block").style.display = "none";
+        return;
+      }
+
+      document.getElementById("cart-footer-block").style.display = "block";
+
+      let subtotalUsd = 0;
+      let subtotalJpy = 0;
+
+      cart.forEach(cartItem => {
+        subtotalUsd += cartItem.totalPriceUsd;
+        subtotalJpy += cartItem.totalPriceJpy;
+
+        const cartItemEl = document.createElement("div");
+        cartItemEl.className = "cart-item";
+
+        let customizationsHTML = "";
+        if (cartItem.item.customType === 'takoyaki') {
+          const activeToppings = Object.keys(cartItem.toppings)
+            .filter(k => cartItem.toppings[k])
+            .map(k => t[k].split(' (+')[0]);
+
+          const toppingsText = activeToppings.length > 0 ? activeToppings.join(', ') : 'None';
+
+          customizationsHTML = `
+            <div class="cart-item-customizations">
+              <div>${currentLanguage === 'ja' ? '個数' : currentLanguage === 'zh' ? '份量' : 'Size'}: ${t[cartItem.portion].split(' (+')[0]}</div>
+              <div>${currentLanguage === 'ja' ? 'ソース' : currentLanguage === 'zh' ? '酱汁' : 'Sauce'}: ${t[cartItem.sauce]}</div>
+              <div>${currentLanguage === 'ja' ? 'トッピング' : currentLanguage === 'zh' ? '配料' : 'Toppings'}: ${toppingsText}</div>
+            </div>
+          `;
+        }
+
+        cartItemEl.innerHTML = `
+          <img src="${cartItem.item.imagePath}" alt="${cartItem.item.names[currentLanguage]}" class="cart-item-img">
+          <div class="cart-item-info">
+            <div class="cart-item-name">${cartItem.item.names[currentLanguage]}</div>
+            ${customizationsHTML}
+            <div class="cart-item-actions">
+              <div class="quantity-control">
+                <button class="qty-btn" onclick="updateQty('${cartItem.cartId}', -1)">-</button>
+                <div class="qty-val">${cartItem.quantity}</div>
+                <button class="qty-btn" onclick="updateQty('${cartItem.cartId}', 1)">+</button>
+              </div>
+              <button class="cart-remove-btn" onclick="removeCartItem('${cartItem.cartId}')">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </div>
+          </div>
+          <div class="cart-item-price">${formatPrice(cartItem.totalPriceUsd, cartItem.totalPriceJpy)}</div>
+        `;
+        container.appendChild(cartItemEl);
+      });
+
+      document.getElementById("cart-total-val").textContent = formatPrice(subtotalUsd, subtotalJpy);
+    }
+
+    // Update Quantity
+    function updateQty(cartId, delta) {
+      const idx = cart.findIndex(c => String(c.cartId) === String(cartId));
+      if (idx === -1) return;
+
+      const newQty = cart[idx].quantity + delta;
+      if (newQty < 1) {
+        cart.splice(idx, 1);
+      } else {
+        cart[idx].quantity = newQty;
+        cart[idx].totalPriceUsd = cart[idx].singlePriceUsd * newQty;
+        cart[idx].totalPriceJpy = cart[idx].singlePriceJpy * newQty;
+      }
+      renderCart();
+    }
+
+    // Remove Item
+    function removeCartItem(cartId) {
+      cart = cart.filter(c => String(c.cartId) !== String(cartId));
+      renderCart();
+    }
+
+    // Open/Close Cart drawer
+    function openCart() {
+      document.getElementById("cart-drawer-overlay").classList.add("open");
+    }
+
+    function closeCart() {
+      document.getElementById("cart-drawer-overlay").classList.remove("open");
+    }
+
+    // Open Checkout Summary Modal
+    function openCheckout() {
+      document.getElementById("pickup-name").value = "";
+      document.getElementById("pickup-phone").value = "";
+      document.getElementById("copied-toast-msg").style.display = "none";
+      updateSummaryBox();
+      document.getElementById("checkout-modal").classList.add("open");
+    }
+
+    function closeCheckout() {
+      document.getElementById("checkout-modal").classList.remove("open");
+    }
+
+    // Update Order text block in real-time
+    function updateSummaryBox() {
+      const name = document.getElementById("pickup-name").value || 'Guest';
+      const phone = document.getElementById("pickup-phone").value || 'N/A';
+      const t = translations[currentLanguage];
+
+      let subtotalUsd = 0;
+      let subtotalJpy = 0;
+
+      let text = `=== MASTER TAKO ORDER ===\n`;
+      text += `Customer Name: ${name}\n`;
+      text += `Phone: ${phone}\n`;
+      text += `--------------------------\n`;
+      
+      cart.forEach(cartItem => {
+        subtotalUsd += cartItem.totalPriceUsd;
+        subtotalJpy += cartItem.totalPriceJpy;
+
+        const priceText = formatPrice(cartItem.totalPriceUsd, cartItem.totalPriceJpy);
+        text += `• ${cartItem.item.names[currentLanguage]} x ${cartItem.quantity}\n`;
+        if (cartItem.item.customType === 'takoyaki') {
+          text += `  - ${t[cartItem.portion].split(' (+')[0]}\n`;
+          text += `  - ${t[cartItem.sauce]}\n`;
+          const activeToppings = Object.keys(cartItem.toppings)
+            .filter(key => cartItem.toppings[key])
+            .map(key => t[key].split(' (+')[0]);
+          if (activeToppings.length > 0) {
+            text += `  - Toppings: ${activeToppings.join(', ')}\n`;
+          }
+        }
+        text += `  Price: ${priceText}\n\n`;
+      });
+
+      text += `--------------------------\n`;
+      text += `Subtotal: ${formatPrice(subtotalUsd, subtotalJpy)}\n`;
+      text += `==========================`;
+
+      document.getElementById("checkout-summary-content").textContent = text;
+    }
+
+    // Copy to clipboard
+    function copyOrderSummary() {
+      const text = document.getElementById("checkout-summary-content").textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const toast = document.getElementById("copied-toast-msg");
+        toast.style.display = "block";
+        setTimeout(() => {
+          toast.style.display = "none";
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
