@@ -1120,11 +1120,7 @@
           <i class="fas fa-sun" id="theme-icon"></i>
         </button>
 
-        <!-- Cart Icon trigger -->
-        <button class="icon-btn" onclick="openCart()" id="cart-trigger-btn" title="Your Order">
-          <i class="fas fa-shopping-basket"></i>
-          <span class="cart-count" id="cart-badge-count" style="display: none;">0</span>
-        </button>
+
       </div>
     </div>
   </header>
@@ -1298,90 +1294,14 @@
 
       <div class="modal-footer">
         <div class="modal-footer-left">
-          <!-- Quantity adjuster -->
-          <div class="quantity-control">
-            <button class="qty-btn" onclick="adjustModalQty(-1)">-</button>
-            <div class="qty-val" id="modal-qty-val">1</div>
-            <button class="qty-btn" onclick="adjustModalQty(1)">+</button>
-          </div>
-
           <div class="modal-price-display">
             <span class="modal-price-label" id="modal-price-lbl">Subtotal</span>
             <span class="modal-price-value" id="modal-price-val">$8.50</span>
           </div>
         </div>
 
-        <button class="btn btn-primary" onclick="addCustomizedToCart()">
-          <span id="modal-add-btn">Add to Cart</span>
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Shopping Cart Drawer -->
-  <div class="cart-drawer-overlay" id="cart-drawer-overlay" onclick="closeCart()">
-    <div class="cart-drawer" onclick="event.stopPropagation()">
-      <div class="cart-header">
-        <h2><span id="cart-title-text">Your Order</span> (<span id="cart-header-count">0</span>)</h2>
-        <button class="close-btn" onclick="closeCart()">&times;</button>
-      </div>
-      
-      <div class="cart-body" id="cart-items-container">
-        <!-- Cart items go here -->
-      </div>
-
-      <div class="cart-footer" id="cart-footer-block" style="display: none;">
-        <div class="cart-summary-row">
-          <span id="cart-total-lbl">Subtotal</span>
-          <span id="cart-total-val">$0.00</span>
-        </div>
-        <button class="cart-checkout-btn" onclick="openCheckout()" id="cart-checkout-btn-txt">
-          Proceed to Checkout
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Checkout Summary Modal -->
-  <div class="modal-overlay" id="checkout-modal" onclick="closeCheckout()">
-    <div class="modal-container" onclick="event.stopPropagation()">
-      <div class="modal-header">
-        <h2 id="checkout-title-txt">Confirm Your Order</h2>
-        <button class="close-btn" onclick="closeCheckout()">&times;</button>
-      </div>
-      <div class="modal-body">
-        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 20px;" id="checkout-sub-txt">
-          Please confirm your order details below. You can copy the summary to text us or present at pickup.
-        </p>
-
-        <div class="checkout-form">
-          <div class="form-group">
-            <label for="pickup-name" id="chk-label-name">Pickup Name</label>
-            <input type="text" id="pickup-name" class="form-input" placeholder="Enter your name" oninput="updateSummaryBox()">
-          </div>
-          <div class="form-group">
-            <label for="pickup-phone" id="chk-label-phone">Phone Number</label>
-            <input type="tel" id="pickup-phone" class="form-input" placeholder="Enter phone number" oninput="updateSummaryBox()">
-          </div>
-        </div>
-
-        <div class="checkout-summary-box" id="checkout-summary-content">
-          <!-- Text order summary loaded here -->
-        </div>
-
-        <button class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="copyOrderSummary()">
-          <i class="fas fa-copy"></i>
-          <span id="checkout-copy-btn">Copy Order Summary</span>
-        </button>
-
-        <div class="copied-toast" id="copied-toast-msg" style="display: none;">
-          <i class="fas fa-check-circle" style="margin-right: 6px;"></i>
-          <span id="copied-toast-txt">Order copied to clipboard!</span>
-        </div>
-      </div>
-      <div class="modal-footer" style="justify-content: flex-end;">
-        <button class="btn btn-secondary" onclick="closeCheckout()" id="checkout-close-btn">
-          Close
+        <button class="btn btn-secondary" onclick="closeCustomizeModal()">
+          <span id="modal-close-btn-txt">Close</span>
         </button>
       </div>
     </div>
@@ -1396,6 +1316,7 @@
         heroTitle: "Savor the True Art of <span>Osaka Takoyaki</span>",
         heroSubtitle: "Hand-crafted octopus balls, cooked to golden perfection with a crispy exterior and a rich, creamy interior. Experience premium toppings and authentic flavors.",
         exploreMenu: "Explore Menu",
+        viewOptions: "Customize & Price",
         categoriesTitle: "Our Craft Menu",
         categoriesSubtitle: "Every takoyaki is hand-turned by our chefs using fresh ingredients. Choose your favorites below.",
         catAll: "All Items",
@@ -1447,6 +1368,7 @@
         heroTitle: "品味正宗 <span>大阪章鱼烧</span> 的艺术",
         heroSubtitle: "手工翻转、烤至金黄。外表酥脆，内里软嫩多汁。搭配豪华浇头，品味最地道的大阪风味。",
         exploreMenu: "浏览菜单",
+        viewOptions: "定制与价格",
         categoriesTitle: "匠心菜单",
         categoriesSubtitle: "每一颗章鱼烧均由师傅现场手作，精选新鲜食材。请在下方选择您的至爱。",
         catAll: "全部菜单",
@@ -1498,6 +1420,7 @@
         heroTitle: "本場 <span>大阪たこ焼き</span> の極みを味わう",
         heroSubtitle: "職人が一つひとつ丁寧に焼き上げる、外はカリカリ、中はトロトロの極上たこ焼き。こだわり抜いた厳選トッピングと本場の味をお楽しみください。",
         exploreMenu: "メニューを見る",
+        viewOptions: "カスタム・価格",
         categoriesTitle: "こだわりメニュー",
         categoriesSubtitle: "当店のたこ焼きはすべて新鮮なタコを使用し、職人が手焼きしています。以下よりお選びください。",
         catAll: "すべて",
@@ -1698,8 +1621,6 @@
     let currentLanguage = 'en';
     let currentCategory = 'all';
     let currentTheme = 'dark';
-    let cart = [];
-    
     // Customization Modal Temp States
     let activeCustomizingItem = null;
     let tempPortion = 'portion6';
@@ -1709,7 +1630,6 @@
       toppingGreenOnion: false,
       toppingSeaweed: false
     };
-    let tempQuantity = 1;
 
     // Monitor scroll
     window.addEventListener("scroll", () => {
@@ -1724,7 +1644,6 @@
     // On Load
     document.addEventListener("DOMContentLoaded", () => {
       setLanguage('en');
-      setTheme('dark');
       renderMenu();
     });
 
@@ -1787,21 +1706,7 @@
 
       document.getElementById("footer-copyright-text").textContent = t.footerText;
 
-      // Update Cart Titles
-      document.getElementById("cart-title-text").textContent = t.cartTitle;
-      document.getElementById("cart-total-lbl").textContent = t.cartTotal;
-      document.getElementById("cart-checkout-btn-txt").textContent = t.checkoutBtn;
 
-      // Update Checkout modal
-      document.getElementById("checkout-title-txt").textContent = t.checkoutTitle;
-      document.getElementById("checkout-sub-txt").textContent = t.checkoutSub;
-      document.getElementById("chk-label-name").textContent = currentLanguage === 'ja' ? 'お名前' : currentLanguage === 'zh' ? '取餐姓名' : 'Pickup Name';
-      document.getElementById("chk-label-phone").textContent = currentLanguage === 'ja' ? '電話番号' : currentLanguage === 'zh' ? '联系电话' : 'Phone Number';
-      document.getElementById("pickup-name").placeholder = currentLanguage === 'ja' ? 'お名前を入力してください' : currentLanguage === 'zh' ? '请输入姓名' : 'Enter your name';
-      document.getElementById("pickup-phone").placeholder = currentLanguage === 'ja' ? '電話番号を入力してください' : currentLanguage === 'zh' ? '请输入电话' : 'Enter phone number';
-      document.getElementById("checkout-copy-btn").textContent = t.copySummary;
-      document.getElementById("copied-toast-txt").textContent = t.summaryCopied;
-      document.getElementById("checkout-close-btn").textContent = t.close;
 
       // Update Active Navigation highlights
       const langWrappers = document.querySelectorAll(".lang-select-wrapper");
@@ -1819,9 +1724,8 @@
       if (lang === 'zh') document.getElementById("m-lang-zh")?.classList.add("active");
       if (lang === 'ja') document.getElementById("m-lang-ja")?.classList.add("active");
 
-      // Rerender Menu and Cart to apply language
+      // Rerender Menu to apply language
       renderMenu();
-      renderCart();
     }
 
     // Set Category
@@ -1850,7 +1754,15 @@
         const nameText = item.names[currentLanguage];
         const priceText = formatPrice(item.basePrice, item.basePriceJa);
         const descText = item.descriptions[currentLanguage];
-        const btnText = item.customType === 'takoyaki' ? t.exploreMenu.split(' ')[0] : t.addCart;
+
+        const footerHTML = item.customType === 'takoyaki' ? `
+            <div class="menu-card-footer">
+              <button class="menu-card-btn" onclick="handleItemClick('${item.id}')">
+                <i class="fas fa-sliders-h" style="margin-right: 6px"></i>
+                ${t.viewOptions}
+              </button>
+            </div>
+        ` : '';
 
         card.innerHTML = `
           <div class="menu-card-img-container">
@@ -1868,12 +1780,7 @@
               <span>${item.category.toUpperCase()}</span>
             </div>
             <p class="menu-card-description">${descText}</p>
-            <div class="menu-card-footer">
-              <button class="menu-card-btn" onclick="handleItemClick('${item.id}')">
-                <i class="fas fa-plus" style="margin-right: 6px"></i>
-                ${btnText}
-              </button>
-            </div>
+            ${footerHTML}
           </div>
         `;
         grid.appendChild(card);
@@ -1887,8 +1794,6 @@
 
       if (item.customType === 'takoyaki') {
         openCustomizeModal(item);
-      } else {
-        addToCartDirect(item);
       }
     }
 
@@ -1902,7 +1807,6 @@
         toppingGreenOnion: false,
         toppingSeaweed: false
       };
-      tempQuantity = 1;
 
       const t = translations[currentLanguage];
       
@@ -1943,8 +1847,7 @@
       document.getElementById("modal-topping-seaweed-lbl").textContent = t.toppingSeaweed.split(' (+')[0];
       document.getElementById("modal-topping-seaweed-prc").textContent = "+" + formatPrice(0.30, 30);
 
-      document.getElementById("modal-price-lbl").textContent = t.cartTotal;
-      document.getElementById("modal-add-btn").textContent = t.addCart;
+      document.getElementById("modal-price-lbl").textContent = t.pricePerItem;
 
       syncModalSelections();
       updateModalPrice();
@@ -1974,8 +1877,6 @@
 
       document.getElementById("modal-topping-seaweed").className = `choice-card ${tempToppings.toppingSeaweed ? 'active' : ''}`;
       document.getElementById("chk-seaweed").innerHTML = tempToppings.toppingSeaweed ? '<i class="fas fa-check"></i>' : '';
-
-      document.getElementById("modal-qty-val").textContent = tempQuantity;
     }
 
     // Set portion and recalculate
@@ -1995,13 +1896,6 @@
     function toggleTopping(tp) {
       tempToppings[tp] = !tempToppings[tp];
       syncModalSelections();
-      updateModalPrice();
-    }
-
-    // Adjust modal quantity
-    function adjustModalQty(val) {
-      tempQuantity = Math.max(1, tempQuantity + val);
-      document.getElementById("modal-qty-val").textContent = tempQuantity;
       updateModalPrice();
     }
 
@@ -2038,258 +1932,13 @@
     function updateModalPrice() {
       if (!activeCustomizingItem) return;
       const singlePrice = getCustomItemPriceObj();
-      document.getElementById("modal-price-val").textContent = formatPrice(singlePrice.usd * tempQuantity, singlePrice.jpy * tempQuantity);
+      document.getElementById("modal-price-val").textContent = formatPrice(singlePrice.usd, singlePrice.jpy);
     }
 
     // Close Customization modal
     function closeCustomizeModal() {
       document.getElementById("customize-modal").classList.remove("open");
       activeCustomizingItem = null;
-    }
-
-    // Add Direct Standard item
-    function addToCartDirect(item) {
-      const existing = cart.find(i => i.id === item.id && i.portion === null);
-      if (existing) {
-        existing.quantity += 1;
-        existing.totalPriceUsd += item.basePrice;
-        existing.totalPriceJpy += (item.basePriceJa || Math.round(item.basePrice * 100));
-      } else {
-        const priceObj = { usd: item.basePrice, jpy: (item.basePriceJa || Math.round(item.basePrice * 100)) };
-        cart.push({
-          cartId: Date.now(),
-          id: item.id,
-          item: item,
-          quantity: 1,
-          portion: null,
-          sauce: null,
-          toppings: null,
-          singlePriceUsd: priceObj.usd,
-          singlePriceJpy: priceObj.jpy,
-          totalPriceUsd: priceObj.usd,
-          totalPriceJpy: priceObj.jpy
-        });
-      }
-      renderCart();
-      openCart();
-    }
-
-    // Add customized takoyaki to cart
-    function addCustomizedToCart() {
-      const singlePrice = getCustomItemPriceObj();
-      const totalPriceUsd = singlePrice.usd * tempQuantity;
-      const totalPriceJpy = singlePrice.jpy * tempQuantity;
-
-      // check duplicate
-      const existingIndex = cart.findIndex(c => 
-        c.id === activeCustomizingItem.id &&
-        c.portion === tempPortion &&
-        c.sauce === tempSauce &&
-        JSON.stringify(c.toppings) === JSON.stringify(tempToppings)
-      );
-
-      if (existingIndex > -1) {
-        cart[existingIndex].quantity += tempQuantity;
-        cart[existingIndex].totalPriceUsd += totalPriceUsd;
-        cart[existingIndex].totalPriceJpy += totalPriceJpy;
-      } else {
-        cart.push({
-          cartId: Date.now(),
-          id: activeCustomizingItem.id,
-          item: activeCustomizingItem,
-          quantity: tempQuantity,
-          portion: tempPortion,
-          sauce: tempSauce,
-          toppings: { ...tempToppings },
-          singlePriceUsd: singlePrice.usd,
-          singlePriceJpy: singlePrice.jpy,
-          totalPriceUsd: totalPriceUsd,
-          totalPriceJpy: totalPriceJpy
-        });
-      }
-
-      closeCustomizeModal();
-      renderCart();
-      openCart();
-    }
-
-    // Render cart elements
-    function renderCart() {
-      const container = document.getElementById("cart-items-container");
-      container.innerHTML = "";
-
-      const t = translations[currentLanguage];
-      const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-
-      // Badge update
-      const badge = document.getElementById("cart-badge-count");
-      if (totalCount > 0) {
-        badge.textContent = totalCount;
-        badge.style.display = "flex";
-      } else {
-        badge.style.display = "none";
-      }
-
-      document.getElementById("cart-header-count").textContent = totalCount;
-
-      if (cart.length === 0) {
-        container.innerHTML = `
-          <div class="cart-empty-message">
-            <i class="fas fa-shopping-basket"></i>
-            <p>${t.cartEmpty}</p>
-          </div>
-        `;
-        document.getElementById("cart-footer-block").style.display = "none";
-        return;
-      }
-
-      document.getElementById("cart-footer-block").style.display = "block";
-
-      let subtotalUsd = 0;
-      let subtotalJpy = 0;
-
-      cart.forEach(cartItem => {
-        subtotalUsd += cartItem.totalPriceUsd;
-        subtotalJpy += cartItem.totalPriceJpy;
-
-        const cartItemEl = document.createElement("div");
-        cartItemEl.className = "cart-item";
-
-        let customizationsHTML = "";
-        if (cartItem.item.customType === 'takoyaki') {
-          const activeToppings = Object.keys(cartItem.toppings)
-            .filter(k => cartItem.toppings[k])
-            .map(k => t[k].split(' (+')[0]);
-
-          const toppingsText = activeToppings.length > 0 ? activeToppings.join(', ') : 'None';
-
-          customizationsHTML = `
-            <div class="cart-item-customizations">
-              <div>${currentLanguage === 'ja' ? '個数' : currentLanguage === 'zh' ? '份量' : 'Size'}: ${t[cartItem.portion].split(' (+')[0]}</div>
-              <div>${currentLanguage === 'ja' ? 'ソース' : currentLanguage === 'zh' ? '酱汁' : 'Sauce'}: ${t[cartItem.sauce]}</div>
-              <div>${currentLanguage === 'ja' ? 'トッピング' : currentLanguage === 'zh' ? '配料' : 'Toppings'}: ${toppingsText}</div>
-            </div>
-          `;
-        }
-
-        cartItemEl.innerHTML = `
-          <img src="${cartItem.item.imagePath}" alt="${cartItem.item.names[currentLanguage]}" class="cart-item-img">
-          <div class="cart-item-info">
-            <div class="cart-item-name">${cartItem.item.names[currentLanguage]}</div>
-            ${customizationsHTML}
-            <div class="cart-item-actions">
-              <div class="quantity-control">
-                <button class="qty-btn" onclick="updateQty('${cartItem.cartId}', -1)">-</button>
-                <div class="qty-val">${cartItem.quantity}</div>
-                <button class="qty-btn" onclick="updateQty('${cartItem.cartId}', 1)">+</button>
-              </div>
-              <button class="cart-remove-btn" onclick="removeCartItem('${cartItem.cartId}')">
-                <i class="fas fa-trash-alt"></i>
-              </button>
-            </div>
-          </div>
-          <div class="cart-item-price">${formatPrice(cartItem.totalPriceUsd, cartItem.totalPriceJpy)}</div>
-        `;
-        container.appendChild(cartItemEl);
-      });
-
-      document.getElementById("cart-total-val").textContent = formatPrice(subtotalUsd, subtotalJpy);
-    }
-
-    // Update Quantity
-    function updateQty(cartId, delta) {
-      const idx = cart.findIndex(c => String(c.cartId) === String(cartId));
-      if (idx === -1) return;
-
-      const newQty = cart[idx].quantity + delta;
-      if (newQty < 1) {
-        cart.splice(idx, 1);
-      } else {
-        cart[idx].quantity = newQty;
-        cart[idx].totalPriceUsd = cart[idx].singlePriceUsd * newQty;
-        cart[idx].totalPriceJpy = cart[idx].singlePriceJpy * newQty;
-      }
-      renderCart();
-    }
-
-    // Remove Item
-    function removeCartItem(cartId) {
-      cart = cart.filter(c => String(c.cartId) !== String(cartId));
-      renderCart();
-    }
-
-    // Open/Close Cart drawer
-    function openCart() {
-      document.getElementById("cart-drawer-overlay").classList.add("open");
-    }
-
-    function closeCart() {
-      document.getElementById("cart-drawer-overlay").classList.remove("open");
-    }
-
-    // Open Checkout Summary Modal
-    function openCheckout() {
-      document.getElementById("pickup-name").value = "";
-      document.getElementById("pickup-phone").value = "";
-      document.getElementById("copied-toast-msg").style.display = "none";
-      updateSummaryBox();
-      document.getElementById("checkout-modal").classList.add("open");
-    }
-
-    function closeCheckout() {
-      document.getElementById("checkout-modal").classList.remove("open");
-    }
-
-    // Update Order text block in real-time
-    function updateSummaryBox() {
-      const name = document.getElementById("pickup-name").value || 'Guest';
-      const phone = document.getElementById("pickup-phone").value || 'N/A';
-      const t = translations[currentLanguage];
-
-      let subtotalUsd = 0;
-      let subtotalJpy = 0;
-
-      let text = `=== MASTER TAKO ORDER ===\n`;
-      text += `Customer Name: ${name}\n`;
-      text += `Phone: ${phone}\n`;
-      text += `--------------------------\n`;
-      
-      cart.forEach(cartItem => {
-        subtotalUsd += cartItem.totalPriceUsd;
-        subtotalJpy += cartItem.totalPriceJpy;
-
-        const priceText = formatPrice(cartItem.totalPriceUsd, cartItem.totalPriceJpy);
-        text += `• ${cartItem.item.names[currentLanguage]} x ${cartItem.quantity}\n`;
-        if (cartItem.item.customType === 'takoyaki') {
-          text += `  - ${t[cartItem.portion].split(' (+')[0]}\n`;
-          text += `  - ${t[cartItem.sauce]}\n`;
-          const activeToppings = Object.keys(cartItem.toppings)
-            .filter(key => cartItem.toppings[key])
-            .map(key => t[key].split(' (+')[0]);
-          if (activeToppings.length > 0) {
-            text += `  - Toppings: ${activeToppings.join(', ')}\n`;
-          }
-        }
-        text += `  Price: ${priceText}\n\n`;
-      });
-
-      text += `--------------------------\n`;
-      text += `Subtotal: ${formatPrice(subtotalUsd, subtotalJpy)}\n`;
-      text += `==========================`;
-
-      document.getElementById("checkout-summary-content").textContent = text;
-    }
-
-    // Copy to clipboard
-    function copyOrderSummary() {
-      const text = document.getElementById("checkout-summary-content").textContent;
-      navigator.clipboard.writeText(text).then(() => {
-        const toast = document.getElementById("copied-toast-msg");
-        toast.style.display = "block";
-        setTimeout(() => {
-          toast.style.display = "none";
-        }, 2000);
-      });
     }
   </script>
 </body>

@@ -7,9 +7,6 @@ export default function App() {
   const [activeCategory, setActiveCategory] = useState('all');
   const [theme, setTheme] = useState('dark');
   const [headerScrolled, setHeaderScrolled] = useState(false);
-  const [cart, setCart] = useState([]);
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   
   // Customization Modal States
   const [customizingItem, setCustomizingItem] = useState(null);
@@ -20,12 +17,6 @@ export default function App() {
     toppingGreenOnion: false,
     toppingSeaweed: false,
   });
-  const [customQuantity, setCustomQuantity] = useState(1);
-
-  // Checkout Form States
-  const [orderName, setOrderName] = useState('');
-  const [orderPhone, setOrderPhone] = useState('');
-  const [isCopied, setIsCopied] = useState(false);
 
   // Monitor scroll for sticky header styling
   useEffect(() => {
@@ -102,152 +93,15 @@ export default function App() {
     return { usd, jpy };
   };
 
-  // Open customization modal or add directly to cart
+  // Open customization modal
   const handleItemClick = (item) => {
-    if (item.customType === 'takoyaki') {
-      setCustomizingItem(item);
-      setCustomPortion('portion6');
-      setCustomSauce('sauceClassic');
-      setCustomToppings({
-        toppingBonito: false,
-        toppingGreenOnion: false,
-        toppingSeaweed: false,
-      });
-      setCustomQuantity(1);
-    } else {
-      // Add standard items (sides/drinks) directly to cart
-      addToCartDirect(item);
-    }
-  };
-
-  // Add standard items directly to cart
-  const addToCartDirect = (item) => {
-    const existingIndex = cart.findIndex(cartItem => cartItem.id === item.id);
-    if (existingIndex > -1) {
-      const newCart = [...cart];
-      newCart[existingIndex].quantity += 1;
-      newCart[existingIndex].totalPriceUsd += item.basePrice;
-      newCart[existingIndex].totalPriceJpy += (item.basePriceJa || Math.round(item.basePrice * 100));
-      setCart(newCart);
-    } else {
-      const itemPrice = { usd: item.basePrice, jpy: (item.basePriceJa || Math.round(item.basePrice * 100)) };
-      setCart([...cart, {
-        cartId: Date.now(),
-        id: item.id,
-        item: item,
-        quantity: 1,
-        portion: null,
-        sauce: null,
-        toppings: null,
-        singlePriceUsd: itemPrice.usd,
-        singlePriceJpy: itemPrice.jpy,
-        totalPriceUsd: itemPrice.usd,
-        totalPriceJpy: itemPrice.jpy
-      }]);
-    }
-    setIsCartOpen(true);
-  };
-
-  // Add customized takoyaki to cart
-  const handleAddCustomizedToCart = () => {
-    const singlePrice = calculateItemPrice(customizingItem, customPortion, customToppings);
-    const totalPriceUsd = singlePrice.usd * customQuantity;
-    const totalPriceJpy = singlePrice.jpy * customQuantity;
-
-    // Check if duplicate customized item already exists in cart
-    const existingIndex = cart.findIndex(cartItem => 
-      cartItem.id === customizingItem.id &&
-      cartItem.portion === customPortion &&
-      cartItem.sauce === customSauce &&
-      JSON.stringify(cartItem.toppings) === JSON.stringify(customToppings)
-    );
-
-    if (existingIndex > -1) {
-      const newCart = [...cart];
-      newCart[existingIndex].quantity += customQuantity;
-      newCart[existingIndex].totalPriceUsd += totalPriceUsd;
-      newCart[existingIndex].totalPriceJpy += totalPriceJpy;
-      setCart(newCart);
-    } else {
-      setCart([...cart, {
-        cartId: Date.now(),
-        id: customizingItem.id,
-        item: customizingItem,
-        quantity: customQuantity,
-        portion: customPortion,
-        sauce: customSauce,
-        toppings: { ...customToppings },
-        singlePriceUsd: singlePrice.usd,
-        singlePriceJpy: singlePrice.jpy,
-        totalPriceUsd: totalPriceUsd,
-        totalPriceJpy: totalPriceJpy
-      }]);
-    }
-
-    setCustomizingItem(null);
-    setIsCartOpen(true);
-  };
-
-  // Cart quantity controls
-  const updateCartQuantity = (cartId, delta) => {
-    const newCart = cart.map(cartItem => {
-      if (cartItem.cartId === cartId) {
-        const newQty = cartItem.quantity + delta;
-        if (newQty < 1) return null;
-        return {
-          ...cartItem,
-          quantity: newQty,
-          totalPriceUsd: cartItem.singlePriceUsd * newQty,
-          totalPriceJpy: cartItem.singlePriceJpy * newQty
-        };
-      }
-      return cartItem;
-    }).filter(Boolean);
-    setCart(newCart);
-  };
-
-  const removeCartItem = (cartId) => {
-    setCart(cart.filter(item => item.cartId !== cartId));
-  };
-
-  // Subtotal calculations
-  const cartSubtotalUsd = cart.reduce((sum, item) => sum + item.totalPriceUsd, 0);
-  const cartSubtotalJpy = cart.reduce((sum, item) => sum + item.totalPriceJpy, 0);
-  const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-
-  // Generate order summary for copying
-  const generateOrderSummary = () => {
-    let text = `=== MASTER TAKO ORDER ===\n`;
-    text += `Customer Name: ${orderName || 'Guest'}\n`;
-    text += `Phone: ${orderPhone || 'N/A'}\n`;
-    text += `--------------------------\n`;
-    
-    cart.forEach(cartItem => {
-      const priceText = formatPrice(cartItem.totalPriceUsd, cartItem.totalPriceJpy);
-      text += `• ${cartItem.item.names[language]} x ${cartItem.quantity}\n`;
-      if (cartItem.item.customType === 'takoyaki') {
-        text += `  - ${t[cartItem.portion].split(' (+')[0]}\n`;
-        text += `  - ${t[cartItem.sauce]}\n`;
-        const activeToppings = Object.keys(cartItem.toppings)
-          .filter(key => cartItem.toppings[key])
-          .map(key => t[key].split(' (+')[0]);
-        if (activeToppings.length > 0) {
-          text += `  - Toppings: ${activeToppings.join(', ')}\n`;
-        }
-      }
-      text += `  Price: ${priceText}\n\n`;
-    });
-
-    text += `--------------------------\n`;
-    text += `Subtotal: ${formatPrice(cartSubtotalUsd, cartSubtotalJpy)}\n`;
-    text += `==========================`;
-    return text;
-  };
-
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(generateOrderSummary()).then(() => {
-      setIsCopied(true);
-      setTimeout(() => setIsCopied(false), 2000);
+    setCustomizingItem(item);
+    setCustomPortion('portion6');
+    setCustomSauce('sauceClassic');
+    setCustomToppings({
+      toppingBonito: false,
+      toppingGreenOnion: false,
+      toppingSeaweed: false,
     });
   };
 
@@ -287,11 +141,7 @@ export default function App() {
               <i className={theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon'}></i>
             </button>
 
-            {/* Cart Icon trigger */}
-            <button className="icon-btn" onClick={() => setIsCartOpen(true)} title={t.cartTitle}>
-              <i className="fas fa-shopping-basket"></i>
-              {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
-            </button>
+
           </div>
         </div>
       </header>
@@ -372,12 +222,14 @@ export default function App() {
                   <span>{item.category}</span>
                 </div>
                 <p className="menu-card-description">{item.descriptions[language]}</p>
-                <div className="menu-card-footer">
-                  <button className="menu-card-btn" onClick={() => handleItemClick(item)}>
-                    <i className="fas fa-plus" style={{ marginRight: '6px' }}></i>
-                    {item.customType === 'takoyaki' ? t.exploreMenu.split(' ')[0] : t.addCart}
-                  </button>
-                </div>
+                {item.customType === 'takoyaki' && (
+                  <div className="menu-card-footer">
+                    <button className="menu-card-btn" onClick={() => handleItemClick(item)}>
+                      <i className="fas fa-sliders-h" style={{ marginRight: '6px' }}></i>
+                      {t.viewOptions}
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           ))}
@@ -521,162 +373,16 @@ export default function App() {
 
             <div className="modal-footer">
               <div className="modal-footer-left">
-                {/* Quantity adjuster */}
-                <div className="quantity-control">
-                  <button className="qty-btn" onClick={() => setCustomQuantity(prev => Math.max(1, prev - 1))}>-</button>
-                  <div className="qty-val">{customQuantity}</div>
-                  <button className="qty-btn" onClick={() => setCustomQuantity(prev => prev + 1)}>+</button>
-                </div>
-
                 <div className="modal-price-display">
-                  <span className="modal-price-label">{t.cartTotal}</span>
+                  <span className="modal-price-label">{t.pricePerItem}</span>
                   <span className="modal-price-value">
-                    {formatPrice(currentModalPrice.usd * customQuantity, currentModalPrice.jpy * customQuantity)}
+                    {formatPrice(currentModalPrice.usd, currentModalPrice.jpy)}
                   </span>
                 </div>
               </div>
 
-              <button className="btn btn-primary" onClick={handleAddCustomizedToCart}>
-                <span>{t.addCart}</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Shopping Cart Drawer */}
-      <div className={`cart-drawer-overlay ${isCartOpen ? 'open' : ''}`} onClick={() => setIsCartOpen(false)}>
-        <div className="cart-drawer" onClick={(e) => e.stopPropagation()}>
-          <div className="cart-header">
-            <h2>{t.cartTitle} ({cartCount})</h2>
-            <button className="close-btn" onClick={() => setIsCartOpen(false)}>&times;</button>
-          </div>
-          
-          <div className="cart-body">
-            {cart.length === 0 ? (
-              <div className="cart-empty-message">
-                <i className="fas fa-shopping-basket"></i>
-                <p>{t.cartEmpty}</p>
-              </div>
-            ) : (
-              cart.map((cartItem) => (
-                <div className="cart-item" key={cartItem.cartId}>
-                  <img src={cartItem.item.imagePath} alt={cartItem.item.names[language]} className="cart-item-img" />
-                  <div className="cart-item-info">
-                    <div className="cart-item-name">{cartItem.item.names[language]}</div>
-                    
-                    {/* Render takoyaki customizations */}
-                    {cartItem.item.customType === 'takoyaki' && (
-                      <div className="cart-item-customizations">
-                        <div>{t.portionLabel}: {t[cartItem.portion]?.split(' (+')[0]}</div>
-                        <div>{t.sauceLabel}: {t[cartItem.sauce]}</div>
-                        {Object.keys(cartItem.toppings).some(k => cartItem.toppings[k]) && (
-                          <div>
-                            {t.toppingsLabel}: {Object.keys(cartItem.toppings)
-                              .filter(k => cartItem.toppings[k])
-                              .map(k => t[k].split(' (+')[0])
-                              .join(', ')}
-                          </div>
-                        )}
-                      </div>
-                    )}
-
-                    <div className="cart-item-actions">
-                      <div className="quantity-control">
-                        <button className="qty-btn" onClick={() => updateCartQuantity(cartItem.cartId, -1)}>-</button>
-                        <div className="qty-val">{cartItem.quantity}</div>
-                        <button className="qty-btn" onClick={() => updateCartQuantity(cartItem.cartId, 1)}>+</button>
-                      </div>
-                      <button className="cart-remove-btn" onClick={() => removeCartItem(cartItem.cartId)}>
-                        <i className="fas fa-trash-alt"></i>
-                      </button>
-                    </div>
-                  </div>
-                  <div className="cart-item-price">
-                    {formatPrice(cartItem.totalPriceUsd, cartItem.totalPriceJpy)}
-                  </div>
-                </div>
-              ))
-            )}
-          </div>
-
-          {cart.length > 0 && (
-            <div className="cart-footer">
-              <div className="cart-summary-row">
-                <span>{t.cartTotal}</span>
-                <span>{formatPrice(cartSubtotalUsd, cartSubtotalJpy)}</span>
-              </div>
-              <button 
-                className="cart-checkout-btn"
-                onClick={() => {
-                  setIsCartOpen(false);
-                  setIsCheckoutOpen(true);
-                }}
-              >
-                {t.checkoutBtn}
-              </button>
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* Checkout Summary Modal */}
-      {isCheckoutOpen && (
-        <div className="modal-overlay open" onClick={() => setIsCheckoutOpen(false)}>
-          <div className="modal-container" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-header">
-              <h2>{t.checkoutTitle}</h2>
-              <button className="close-btn" onClick={() => setIsCheckoutOpen(false)}>&times;</button>
-            </div>
-            <div className="modal-body">
-              <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '20px' }}>
-                {t.checkoutSub}
-              </p>
-
-              <div className="checkout-form">
-                <div className="form-group">
-                  <label htmlFor="customer-name">Pickup Name</label>
-                  <input 
-                    type="text" 
-                    id="customer-name"
-                    className="form-input" 
-                    placeholder="Enter your name" 
-                    value={orderName}
-                    onChange={(e) => setOrderName(e.target.value)}
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="customer-phone">Phone Number</label>
-                  <input 
-                    type="tel" 
-                    id="customer-phone"
-                    className="form-input" 
-                    placeholder="Enter phone number" 
-                    value={orderPhone}
-                    onChange={(e) => setOrderPhone(e.target.value)}
-                  />
-                </div>
-              </div>
-
-              <div className="checkout-summary-box">
-                {generateOrderSummary()}
-              </div>
-
-              <button className="btn btn-primary" style={{ width: '100%', justifyContent: 'center' }} onClick={copyToClipboard}>
-                <i className="fas fa-copy"></i>
-                <span>{t.copySummary}</span>
-              </button>
-
-              {isCopied && (
-                <div className="copied-toast">
-                  <i className="fas fa-check-circle" style={{ marginRight: '6px' }}></i>
-                  {t.summaryCopied}
-                </div>
-              )}
-            </div>
-            <div className="modal-footer" style={{ justifyContent: 'flex-end' }}>
-              <button className="btn btn-secondary" onClick={() => setIsCheckoutOpen(false)}>
-                {t.close}
+              <button className="btn btn-secondary" onClick={() => setCustomizingItem(null)}>
+                <span>{t.close}</span>
               </button>
             </div>
           </div>
